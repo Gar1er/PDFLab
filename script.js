@@ -1327,23 +1327,35 @@ function renderImages() {
   });
 }
 
-/* ===== AGREGAR IMÁGENES ===== */
+/* ===== DETECTAR Y AGREGAR IMÁGENES ===== */
+
+function obtenerTipoImagen(archivo) {
+  const tipo = (archivo.type || "").toLowerCase();
+  const extension = (archivo.name || "").split(".").pop().toLowerCase();
+
+  if (tipo === "image/jpeg" || tipo === "image/jpg" || ["jpg", "jpeg"].includes(extension)) {
+    return "image/jpeg";
+  }
+  if (tipo === "image/png" || extension === "png") {
+    return "image/png";
+  }
+  if (tipo === "image/webp" || extension === "webp") {
+    return "image/webp";
+  }
+
+  return null;
+}
 
 function agregarImagenes(archivos) {
-  const lista = Array.from(archivos);
-
-  const imagenesValidas = lista.filter((archivo) =>
-    ["image/jpeg", "image/png", "image/webp"].includes(archivo.type),
-  );
+  const lista = Array.from(archivos || []);
+  const imagenesValidas = lista.filter((archivo) => obtenerTipoImagen(archivo));
 
   selectedImages.push(...imagenesValidas);
-  imagenesValidas.forEach(() => {
-    imageRotations.push(0);
-  });
+  imagenesValidas.forEach(() => imageRotations.push(0));
 
   imagePdfMessage.textContent =
     imagenesValidas.length !== lista.length
-      ? "Algunos archivos no son imágenes compatibles."
+      ? "Algunos archivos no son compatibles. Usa JPG, PNG o WEBP."
       : "";
 
   renderImages();
@@ -1509,6 +1521,162 @@ previewNextPage?.addEventListener("click", async () => {
   await mostrarPaginaPreview();
 });
 
+/* ===== PREPARAR IMÁGENES PARA PDF ===== */
+
+// El límite evita que las fotografías enormes de algunos teléfonos consuman
+// demasiada memoria al convertirlas. 3508 px equivale aproximadamente al lado
+// largo de una hoja A4 a 300 DPI.
+const MAX_IMAGE_SIDE_PX = 3508;
+const MAX_IMAGE_PIXELS = 8700000;
+
+function establecerProgresoImagenes(porcentaje, mensaje) {
+  const valor = Math.max(0, Math.min(100, Math.round(porcentaje)));
+  imagePdfProgress.hidden = false;
+  imageProgressBar.style.width = `${valor}%`;
+  imageProgressPercent.textContent = `${valor}%`;
+  imageProgressText.textContent = mensaje;
+}
+
+// Esta función también se usa al terminar cada imagen. Se define aquí para
+// evitar que la conversión falle por una referencia inexistente.
+function actualizarProgresoImagenes(actual, total) {
+  const porcentaje = total > 0 ? (actual / total) * 85 : 85;
+  establecerProgresoImagenes(
+    porcentaje,
+    `Imagen ${actual} de ${total} procesada(s)`,
+  );
+}
+
+async function crearFuenteImagen(archivo) {
+  if (typeof createImageBitmap === "function") {
+    try {
+      const bitmap = await createImageBitmap(archivo, {
+        imageOrientation: "from-image",
+      });
+      return { fuente: bitmap, limpiar: () => bitmap.close() };
+    } catch (errorOrientacion) {
+      // Algunos navegadores móviles no admiten la opción imageOrientation.
+      try {
+        const bitmap = await createImageBitmap(archivo);
+        return { fuente: bitmap, limpiar: () => bitmap.close() };
+      } catch (errorBitmap) {
+        console.warn("createImageBitmap no pudo leer la imagen; se usará Image().", errorBitmap);
+      }
+    }
+  }
+
+  // Alternativa para navegadores sin createImageBitmap o con incompatibilidades.
+  const url = URL.createObjectURL(archivo);
+  const imagen = new Image();
+  imagen.decoding = "async";
+  imagen.src = url;
+
+  try {
+    if (typeof imagen.decode === "function") {
+      await imagen.decode();
+    } else {
+      await new Promise((resolve, reject) => {
+        imagen.onload = resolve;
+        imagen.onerror = () => reject(new Error("El navegador no pudo leer la imagen."));
+      });
+    }
+
+    return { fuente: imagen, limpiar: () => URL.revokeObjectURL(url) };
+  } catch (error) {
+    URL.revokeObjectURL(url);
+    throw new Error(`No se pudo abrir "${archivo.name}". Comprueba que no esté dañada.`);
+  }
+}
+
+function canvasAblob(canvas, tipo, calidad) {
+  return new Promise((resolve, reject) => {
+    if (typeof canvas.toBlob === "function") {
+      canvas.toBlob((blob) => {
+        if (blob) resolve(blob);
+        else reject(new Error("El navegador no pudo preparar la imagen para el PDF."));
+      }, tipo, calidad);
+      return;
+    }
+
+    // Respaldo para navegadores antiguos sin HTMLCanvasElement.toBlob.
+    try {
+      const dataURL = canvas.toDataURL(tipo, calidad);
+      const base64 = dataURL.split(",")[1];
+      const binario = atob(base64);
+      const bytes = new Uint8Array(binario.length);
+      for (let i = 0; i < binario.length; i++) bytes[i] = binario.charCodeAt(i);
+      resolve(new Blob([bytes], { type: tipo }));
+    } catch (error) {
+      reject(new Error("No se pudo exportar la imagen desde el navegador."));
+    }
+  });
+}
+
+async function prepararImagenParaPDF(archivo) {
+  const tipoOriginal = obtenerTipoImagen(archivo);
+  if (!tipoOriginal) {
+    throw new Error(`"${archivo.name}" no es JPG, PNG o WEBP.`);
+  }
+
+  const { fuente, limpiar } = await crearFuenteImagen(archivo);
+  let canvas;
+
+  try {
+    const anchoOriginal = fuente.width || fuente.naturalWidth;
+    const altoOriginal = fuente.height || fuente.naturalHeight;
+
+    if (!anchoOriginal || !altoOriginal) {
+      throw new Error(`No se pudieron leer las dimensiones de "${archivo.name}".`);
+    }
+
+    const escala = Math.min(
+      1,
+      MAX_IMAGE_SIDE_PX / Math.max(anchoOriginal, altoOriginal),
+      Math.sqrt(MAX_IMAGE_PIXELS / (anchoOriginal * altoOriginal)),
+    );
+    const ancho = Math.max(1, Math.round(anchoOriginal * escala));
+    const alto = Math.max(1, Math.round(altoOriginal * escala));
+
+    canvas = document.createElement("canvas");
+    canvas.width = ancho;
+    canvas.height = alto;
+
+    const contexto = canvas.getContext("2d", {
+      alpha: tipoOriginal !== "image/jpeg",
+    });
+    if (!contexto) {
+      throw new Error("El navegador no pudo crear el área de procesamiento de la imagen.");
+    }
+
+    // Las fotos JPEG se reexportan para respetar su orientación EXIF. PNG y
+    // WEBP se exportan como PNG para conservar transparencias.
+    contexto.drawImage(fuente, 0, 0, ancho, alto);
+
+    const tipoSalida = tipoOriginal === "image/jpeg" ? "image/jpeg" : "image/png";
+    const blob = await canvasAblob(
+      canvas,
+      tipoSalida,
+      tipoSalida === "image/jpeg" ? 0.94 : undefined,
+    );
+
+    return {
+      bytes: await blob.arrayBuffer(),
+      tipo: tipoSalida,
+      ancho,
+      alto,
+      anchoOriginal,
+      altoOriginal,
+      redimensionada: escala < 1,
+    };
+  } finally {
+    limpiar();
+    if (canvas) {
+      canvas.width = 1;
+      canvas.height = 1;
+    }
+  }
+}
+
 /* ===== CONVERTIR IMÁGENES A PDF ===== */
 
 async function convertirImagenesAPDF() {
@@ -1517,91 +1685,52 @@ async function convertirImagenesAPDF() {
     return;
   }
 
-  if (convirtiendoImagenes) {
-    return;
-  }
+  if (convirtiendoImagenes) return;
 
   convirtiendoImagenes = true;
-
   const imagenesParaPDF = [...selectedImages];
   const rotacionesParaPDF = [...imageRotations];
 
-  imagePdfProgress.hidden = false;
-  imageProgressBar.style.width = "0%";
-  imageProgressPercent.textContent = "0%";
-  imageProgressText.textContent = "Preparando imágenes...";
-
   convertImagesButton.disabled = true;
-  imagePdfMessage.textContent = "Creando tu PDF...";
+  establecerProgresoImagenes(2, "Iniciando conversión...");
+  imagePdfMessage.textContent = "Preparando tus imágenes...";
 
   try {
+    await permitirRepintado();
+
+    if (typeof PDFLib === "undefined" || !PDFLib.PDFDocument) {
+      throw new Error("No se pudo cargar la biblioteca PDF. Revisa tu conexión e inténtalo de nuevo.");
+    }
+
     const pdf = await PDFLib.PDFDocument.create();
+    const totalImagenes = imagenesParaPDF.length;
 
     for (const [indice, archivo] of imagenesParaPDF.entries()) {
-      const bytes = await archivo.arrayBuffer();
-      let imagen;
+      const progresoBase = (indice / totalImagenes) * 85;
+      const avanceImagen = 85 / totalImagenes;
 
-      if (archivo.type === "image/jpeg") {
-        const bitmap = await createImageBitmap(archivo, {
-          imageOrientation: "from-image",
-        });
+      establecerProgresoImagenes(
+        Math.max(4, progresoBase + avanceImagen * 0.08),
+        `Preparando imagen ${indice + 1} de ${totalImagenes}...`,
+      );
+      imagePdfMessage.textContent = `Leyendo ${archivo.name}...`;
+      await permitirRepintado();
 
-        try {
-          const canvas = document.createElement("canvas");
-          canvas.width = bitmap.width;
-          canvas.height = bitmap.height;
+      const procesada = await prepararImagenParaPDF(archivo);
 
-          const contexto = canvas.getContext("2d");
-          contexto.drawImage(bitmap, 0, 0);
+      establecerProgresoImagenes(
+        progresoBase + avanceImagen * 0.55,
+        `Insertando imagen ${indice + 1} de ${totalImagenes}...`,
+      );
+      await permitirRepintado();
 
-          const blob = await new Promise((resolve, reject) => {
-            canvas.toBlob(
-              (resultado) => {
-                if (resultado) resolve(resultado);
-                else reject(new Error("No se pudo procesar la fotografía."));
-              },
-              "image/jpeg",
-              0.95,
-            );
-          });
-
-          imagen = await pdf.embedJpg(await blob.arrayBuffer());
-        } finally {
-          bitmap.close();
-        }
-      } else if (archivo.type === "image/png") {
-        imagen = await pdf.embedPng(bytes);
-      } else if (archivo.type === "image/webp") {
-        // Convertimos WEBP a PNG para que pdf-lib lo acepte.
-        const bitmap = await createImageBitmap(archivo);
-
-        try {
-          const canvas = document.createElement("canvas");
-          canvas.width = bitmap.width;
-          canvas.height = bitmap.height;
-
-          const contexto = canvas.getContext("2d");
-          contexto.drawImage(bitmap, 0, 0);
-
-          const pngBlob = await new Promise((resolve, reject) => {
-            canvas.toBlob((blob) => {
-              if (blob) resolve(blob);
-              else reject(new Error("No se pudo convertir WEBP."));
-            }, "image/png");
-          });
-
-          imagen = await pdf.embedPng(await pngBlob.arrayBuffer());
-        } finally {
-          bitmap.close();
-        }
-      } else {
-        throw new Error("Formato de imagen no compatible.");
-      }
+      const imagen = procesada.tipo === "image/jpeg"
+        ? await pdf.embedJpg(processada.bytes)
+        : await pdf.embedPng(procesada.bytes);
 
       /* ===== APLICAR ROTACIÓN A LA IMAGEN ===== */
 
       const grados = rotacionesParaPDF[indice] || 0;
-
       let anchoRotado = imagen.width;
       let altoRotado = imagen.height;
 
@@ -1610,7 +1739,7 @@ async function convertirImagenesAPDF() {
         altoRotado = imagen.width;
       }
 
-      /* ===== CONFIGURAR PAGINA ===== */
+      /* ===== CONFIGURAR PÁGINA ===== */
 
       const tamaño = imagePageSize.value;
       const orientacion = imageOrientation.value;
@@ -1626,61 +1755,44 @@ async function convertirImagenesAPDF() {
         anchoPagina = 612;
         altoPagina = 792;
       } else {
-        anchoPagina = anchoRotado;
-        altoPagina = altoRotado;
+        // Mantener el tamaño físico original de la imagen aunque se reduzca
+        // su resolución para ahorrar memoria en móviles.
+        anchoPagina = grados === 90 || grados === 270
+          ? procesada.altoOriginal
+          : procesada.anchoOriginal;
+        altoPagina = grados === 90 || grados === 270
+          ? procesada.anchoOriginal
+          : procesada.altoOriginal;
       }
 
-      // Orientación automática según la fotografía
       const horizontal = anchoRotado > altoRotado;
 
-      if (
-        orientacion === "landscape" ||
-        (orientacion === "auto" && horizontal)
-      ) {
-        if (anchoPagina < altoPagina) {
-          [anchoPagina, altoPagina] = [altoPagina, anchoPagina];
-        }
-      } else if (
-        orientacion === "portrait" ||
-        (orientacion === "auto" && !horizontal)
-      ) {
-        if (anchoPagina > altoPagina) {
-          [anchoPagina, altoPagina] = [altoPagina, anchoPagina];
-        }
+      if (orientacion === "landscape" || (orientacion === "auto" && horizontal)) {
+        if (anchoPagina < altoPagina) [anchoPagina, altoPagina] = [altoPagina, anchoPagina];
+      } else if (orientacion === "portrait" || (orientacion === "auto" && !horizontal)) {
+        if (anchoPagina > altoPagina) [anchoPagina, altoPagina] = [altoPagina, anchoPagina];
       }
 
-      // Evitar márgenes mayores que el espacio disponible
       const margen = Math.min(
         margenElegido,
         Math.max(0, (Math.min(anchoPagina, altoPagina) - 1) / 2),
       );
-
       const anchoDisponible = anchoPagina - margen * 2;
       const altoDisponible = altoPagina - margen * 2;
-
-      // Mantener proporciones sin deformar la imagen
-      /* ===== AJUSTAR IMAGEN GIRADA A LA PAGINA ===== */
-
       const escala = Math.min(
         anchoDisponible / anchoRotado,
         altoDisponible / altoRotado,
       );
-
       const anchoImagen = imagen.width * escala;
       const altoImagen = imagen.height * escala;
 
       const pagina = pdf.addPage([anchoPagina, altoPagina]);
-
       const centroX = anchoPagina / 2;
       const centroY = altoPagina / 2;
-
       const radianes = (-grados * Math.PI) / 180;
-
-      // Centro de la imagen después de aplicar la rotación
       const desplazamientoX =
         (anchoImagen / 2) * Math.cos(radianes) -
         (altoImagen / 2) * Math.sin(radianes);
-
       const desplazamientoY =
         (anchoImagen / 2) * Math.sin(radianes) +
         (altoImagen / 2) * Math.cos(radianes);
@@ -1693,73 +1805,58 @@ async function convertirImagenesAPDF() {
         rotate: PDFLib.degrees(-grados),
       });
 
-      actualizarProgresoImagenes(indice + 1, imagenesParaPDF.length);
-
-      // Dar oportunidad al navegador de actualizar la barra.
-      await new Promise((resolve) => {
-        requestAnimationFrame(() => {
-          requestAnimationFrame(resolve);
-        });
-      });
+      actualizarProgresoImagenes(indice + 1, totalImagenes);
+      imagePdfMessage.textContent = procesada.redimensionada
+        ? `${archivo.name} optimizada para el dispositivo.`
+        : `${archivo.name} procesada.`;
+      await permitirRepintado();
     }
 
-    imageProgressText.textContent = "Guardando documento PDF...";
+    establecerProgresoImagenes(91, "Guardando documento PDF...");
+    imagePdfMessage.textContent = "Generando el archivo final...";
+    await permitirRepintado();
+
     const pdfBytes = await pdf.save();
     const tamanoFinalPDF = formatearTamanoPDF(pdfBytes.length);
-    /* ===== MOSTRAR VISTA PREVIA ===== */
-
-    try {
-      await abrirVistaPreviaPDF(pdfBytes);
-    } catch (errorPreview) {
-      console.error("Error al mostrar vista previa:", errorPreview);
-
-      imagePdfPreview.hidden = true;
-    }
-
-    const blob = new Blob([pdfBytes], {
-      type: "application/pdf",
-    });
-
+    const blob = new Blob([pdfBytes], { type: "application/pdf" });
     const nombreInput = document.getElementById("imagePdfName");
+    const nombre = nombreInput.value
+      .trim()
+      .replace(/\.pdf$/i, "")
+      .replace(/[\\/:*?"<>|]/g, "_") || "PDFLab_Documento";
 
-    const nombre =
-      nombreInput.value
-        .trim()
-        .replace(/\.pdf$/i, "")
-        .replace(/[\\/:*?"<>|]/g, "_") || "PDFLab_Documento";
+    establecerProgresoImagenes(97, "Preparando descarga...");
+    await permitirRepintado();
 
     const url = URL.createObjectURL(blob);
     const enlace = document.createElement("a");
-
     enlace.href = url;
     enlace.download = `${nombre}.pdf`;
-
     document.body.appendChild(enlace);
     enlace.click();
     enlace.remove();
-
     setTimeout(() => URL.revokeObjectURL(url), 1000);
 
     imagePdfMessage.textContent =
-      `¡PDF creado correctamente! ` +
-      `${imagenesParaPDF.length} imágenes convertidas. ` +
-      `Tamaño final: ${tamanoFinalPDF}`;
+      `¡PDF creado correctamente! ${imagenesParaPDF.length} imágenes convertidas. Tamaño final: ${tamanoFinalPDF}`;
+    establecerProgresoImagenes(100, "¡Documento terminado!");
 
-    imageProgressText.textContent = "¡Documento terminado!";
-    imageProgressPercent.textContent = "100%";
-    imageProgressBar.style.width = "100%";
+    // La descarga ya está iniciada; una demora de PDF.js en la vista previa
+    // no debe impedir que el usuario reciba su archivo.
+    abrirVistaPreviaPDF(pdfBytes).catch((errorPreview) => {
+      console.error("Error al mostrar vista previa:", errorPreview);
+      if (imagePdfPreview) imagePdfPreview.hidden = true;
+    });
 
     mostrarDonacion();
   } catch (error) {
     console.error("Error al convertir imágenes:", error);
-
     imagePdfMessage.textContent =
-      "No se pudo crear el PDF. Revisa que las imágenes sean válidas.";
-
-    imagePdfProgress.hidden = true;
+      `No se pudo crear el PDF. ${error?.message || "Comprueba que las imágenes sean válidas."}`;
+    imageProgressText.textContent = "No se pudo completar la conversión";
+    imageProgressPercent.textContent = "Error";
   } finally {
     convirtiendoImagenes = false;
-
     convertImagesButton.disabled = selectedImages.length === 0;
   }
 }
