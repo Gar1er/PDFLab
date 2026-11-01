@@ -2158,7 +2158,6 @@ body {
   }
 }
 
-
 /* ===== PDFLAB: PORTADA Y PAGINAS INDEPENDIENTES ===== */
 
 .tool-card {
@@ -2451,5 +2450,417 @@ body {
 
   .tool-page-lead {
     font-size: 13px;
+  }
+}
+
+/* ==================================
+   PÁGINA SOBRE PDFLAB
+================================== */
+
+.about-card {
+  max-width: 850px;
+  margin: 60px auto;
+  padding: 40px;
+  line-height: 1.9;
+  background: rgba(20, 15, 35, 0.85);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 24px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 600px) {
+  .about-card {
+    margin: 24px auto;
+    padding: 24px;
+  }
+}
+
+/* Enlace para regresar a PDFLab */
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #b794f6;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: #d8b4fe;
+  text-decoration: underline;
+}
+
+.back-link:focus-visible {
+  outline: 2px solid #d8b4fe;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ==========================================
+   SOBRE PDFLAB — REDISEÑO
+========================================== */
+
+.about-page {
+  min-height: 100vh;
+  color: #f8f5ff;
+  background:
+    radial-gradient(
+      ellipse at 50% 5%,
+      rgba(111, 47, 203, 0.23),
+      transparent 48%
+    ),
+    #0d0917;
+}
+
+/* Barra superior */
+
+.about-header {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.about-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.about-logo-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  color: white;
+  background: linear-gradient(135deg, #7c3aed, #c026d3);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+}
+
+.about-nav-link {
+  color: #c9b8e6;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.about-nav-link:hover {
+  color: white;
+}
+
+/* Portada principal */
+
+.about-hero {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px 24px 85px;
+  text-align: center;
+}
+
+.about-eyebrow {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #c4a2ff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+}
+
+.about-hero h1 {
+  margin: 0 auto 25px;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  line-height: 1.1;
+  letter-spacing: -2px;
+  font-weight: 900;
+}
+
+.about-hero h1 span {
+  color: #b879ff;
+  background: linear-gradient(90deg, #a78bfa, #e879f9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.about-hero p {
+  max-width: 620px;
+  margin: 0 auto 32px;
+  color: #c7bdd6;
+  font-size: 1.12rem;
+  line-height: 1.8;
+}
+
+.about-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 28px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.about-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 38px rgba(168, 85, 247, 0.45);
+}
+
+/* Secciones */
+
+.about-section {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 70px 24px;
+}
+
+.about-section-heading {
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+.about-section h2,
+.about-closing h2 {
+  margin: 0 0 18px;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  line-height: 1.2;
+}
+
+.about-section-heading p,
+.about-closing p {
+  color: #bdb0cf;
+  line-height: 1.8;
+}
+
+/* Tarjetas de herramientas */
+
+.about-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.about-tool-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 28px 22px;
+  border: 1px solid rgba(168, 85, 247, 0.23);
+  border-radius: 20px;
+  background: rgba(35, 25, 54, 0.7);
+  color: #fff;
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+
+.about-tool-card:hover {
+  transform: translateY(-6px);
+  border-color: #a855f7;
+  background: rgba(65, 38, 101, 0.75);
+}
+
+.about-tool-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 22px;
+  border-radius: 15px;
+  background: rgba(168, 85, 247, 0.16);
+  color: #d8b4fe;
+  font-size: 1.8rem;
+}
+
+.about-tool-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+}
+
+.about-tool-card p {
+  flex: 1;
+  margin: 0 0 22px;
+  color: #bdb0cf;
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+.about-tool-arrow {
+  color: #c4a2ff;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* Misión */
+
+.about-mission {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 55px;
+  border-top: 1px solid rgba(168, 85, 247, 0.15);
+}
+
+.about-mission p {
+  color: #c7bdd6;
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+/* Privacidad */
+
+.about-privacy {
+  padding: 65px 35px;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 28px;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(124, 58, 237, 0.18),
+      transparent 65%
+    ),
+    #1b142b;
+  text-align: center;
+}
+
+.about-privacy-icon {
+  display: grid;
+  place-items: center;
+  width: 65px;
+  height: 65px;
+  margin: 0 auto 25px;
+  border-radius: 20px;
+  background: rgba(168, 85, 247, 0.18);
+  color: #d8b4fe;
+  font-size: 2.2rem;
+}
+
+.about-privacy p {
+  max-width: 650px;
+  margin: 0 auto;
+  color: #c7bdd6;
+  line-height: 1.9;
+}
+
+/* Cierre y pie de página */
+
+.about-closing {
+  padding: 85px 24px 110px;
+  text-align: center;
+}
+
+.about-closing p {
+  max-width: 520px;
+  margin: 0 auto 28px;
+}
+
+.about-footer {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid rgba(168, 85, 247, 0.2);
+  color: #a99bbd;
+  font-size: 0.9rem;
+}
+
+/* Accesibilidad */
+
+.about-page a:focus-visible {
+  outline: 2px solid #d8b4fe;
+  outline-offset: 4px;
+}
+
+/* Tablets */
+
+@media (max-width: 900px) {
+  .about-tools-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-mission {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+/* Celulares */
+
+@media (max-width: 600px) {
+  .about-header {
+    padding: 20px 16px;
+  }
+
+  .about-logo {
+    font-size: 1.25rem;
+  }
+
+  .about-nav-link {
+    font-size: 0.85rem;
+  }
+
+  .about-hero {
+    padding: 75px 20px 85px;
+  }
+
+  .about-hero h1 {
+    letter-spacing: -1px;
+  }
+
+  .about-section {
+    padding: 45px 18px;
+  }
+
+  .about-tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-tool-card {
+    padding: 25px;
+  }
+
+  .about-privacy {
+    padding: 45px 22px;
+  }
+
+  .about-closing {
+    padding: 70px 20px;
+  }
+
+  .about-footer {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-button,
+  .about-tool-card {
+    transition: none;
+  }
+
+  .about-button:hover,
+  .about-tool-card:hover {
+    transform: none;
   }
 }
