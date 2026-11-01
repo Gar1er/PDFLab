@@ -2864,3 +2864,167 @@ body {
     transform: none;
   }
 }
+
+/* ==========================================
+   POLÍTICA DE PRIVACIDAD — PDFLAB
+========================================== */
+
+/* Portada */
+
+.privacy-hero {
+  padding-top: 85px;
+  padding-bottom: 75px;
+}
+
+/* Tarjetas de resumen */
+
+.privacy-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.privacy-summary-card {
+  padding: 30px 25px;
+  background: rgba(35, 25, 54, 0.7);
+  border: 1px solid rgba(168, 85, 247, 0.23);
+  border-radius: 20px;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.privacy-summary-card:hover {
+  transform: translateY(-5px);
+  border-color: #a855f7;
+}
+
+.privacy-summary-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  background: rgba(168, 85, 247, 0.17);
+  color: #d8b4fe;
+  font-size: 1.7rem;
+}
+
+.privacy-summary-card h3 {
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+.privacy-summary-card p {
+  margin: 0;
+  color: #bdb0cf;
+  font-size: 0.94rem;
+  line-height: 1.8;
+}
+
+/* Contenido de la política */
+
+.privacy-content {
+  max-width: 950px;
+  padding-top: 35px;
+}
+
+.privacy-block {
+  display: grid;
+  grid-template-columns: 55px minmax(0, 1fr);
+  gap: 25px;
+  padding: 35px 0;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.17);
+}
+
+.privacy-block:last-child {
+  border-bottom: none;
+}
+
+.privacy-number {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 14px;
+  background: rgba(124, 58, 237, 0.15);
+  color: #c4a2ff;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.privacy-block h2 {
+  margin: 0 0 20px;
+  color: #f8f5ff;
+  font-size: 1.55rem;
+}
+
+.privacy-block p {
+  margin: 0 0 16px;
+  color: #c7bdd6;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.privacy-block p:last-child {
+  margin-bottom: 0;
+}
+
+/* Adaptación para tablets */
+
+@media (max-width: 900px) {
+  .privacy-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Adaptación para celulares */
+
+@media (max-width: 600px) {
+  .privacy-hero {
+    padding-top: 65px;
+    padding-bottom: 55px;
+  }
+
+  .privacy-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .privacy-summary-card {
+    padding: 25px;
+  }
+
+  .privacy-block {
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 15px;
+    padding: 28px 0;
+  }
+
+  .privacy-number {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    font-size: 0.8rem;
+  }
+
+  .privacy-block h2 {
+    font-size: 1.25rem;
+  }
+
+  .privacy-block p {
+    font-size: 0.94rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .privacy-summary-card {
+    transition: none;
+  }
+
+  .privacy-summary-card:hover {
+    transform: none;
+  }
+}
