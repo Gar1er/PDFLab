@@ -1706,6 +1706,7 @@ async function convertirImagenesAPDF() {
     const totalImagenes = imagenesParaPDF.length;
 
     for (const [indice, archivo] of imagenesParaPDF.entries()) {
+      let imagenPreparada;
       const progresoBase = (indice / totalImagenes) * 85;
       const avanceImagen = 85 / totalImagenes;
 
@@ -1716,7 +1717,7 @@ async function convertirImagenesAPDF() {
       imagePdfMessage.textContent = `Leyendo ${archivo.name}...`;
       await permitirRepintado();
 
-      const procesada = await prepararImagenParaPDF(archivo);
+      imagenPreparada = await prepararImagenParaPDF(archivo);
 
       establecerProgresoImagenes(
         progresoBase + avanceImagen * 0.55,
@@ -1724,9 +1725,9 @@ async function convertirImagenesAPDF() {
       );
       await permitirRepintado();
 
-      const imagen = procesada.tipo === "image/jpeg"
-        ? await pdf.embedJpg(processada.bytes)
-        : await pdf.embedPng(procesada.bytes);
+      const imagen = imagenPreparada.tipo === "image/jpeg"
+        ? await pdf.embedJpg(imagenPreparada.bytes)
+        : await pdf.embedPng(imagenPreparada.bytes);
 
       /* ===== APLICAR ROTACIÓN A LA IMAGEN ===== */
 
@@ -1758,11 +1759,11 @@ async function convertirImagenesAPDF() {
         // Mantener el tamaño físico original de la imagen aunque se reduzca
         // su resolución para ahorrar memoria en móviles.
         anchoPagina = grados === 90 || grados === 270
-          ? procesada.altoOriginal
-          : procesada.anchoOriginal;
+          ? imagenPreparada.altoOriginal
+          : imagenPreparada.anchoOriginal;
         altoPagina = grados === 90 || grados === 270
-          ? procesada.anchoOriginal
-          : procesada.altoOriginal;
+          ? imagenPreparada.anchoOriginal
+          : imagenPreparada.altoOriginal;
       }
 
       const horizontal = anchoRotado > altoRotado;
@@ -1806,7 +1807,7 @@ async function convertirImagenesAPDF() {
       });
 
       actualizarProgresoImagenes(indice + 1, totalImagenes);
-      imagePdfMessage.textContent = procesada.redimensionada
+      imagePdfMessage.textContent = imagenPreparada.redimensionada
         ? `${archivo.name} optimizada para el dispositivo.`
         : `${archivo.name} procesada.`;
       await permitirRepintado();
