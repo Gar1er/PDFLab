@@ -1,539 +1,96 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-MX">
   <head>
-    <meta name="google-site-verification" content="m9KMBVzfrkL-9mu0mw3bhD77L9j0Efg2nmo-NNXbjDE" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <meta
-  name="description"
-  content="PDFLab: une, divide y comprime archivos PDF gratis. Convierte imágenes a PDF fácilmente, sin registro y desde tu navegador."
-/>
-
-    <!-- Vista previa para redes sociales -->
-<meta property="og:type" content="website" />
-<meta property="og:locale" content="es_MX" />
-<meta property="og:site_name" content="PDFLab" />
-<meta
-  property="og:title"
-  content="PDFLab | Herramientas PDF Gratis"
-/>
-<meta
-  property="og:description"
-  content="Une, divide y comprime PDF gratis. Convierte imágenes a PDF fácilmente, sin registro."
-/>
-<meta
-  property="og:url"
-  content="https://pdflab-coe.pages.dev/"
-/>
-
-    <title>Unir, Dividir y Comprimir PDF Gratis | PDFLab</title>
-
+    <meta name="description" content="PDFLab reúne herramientas gratuitas para unir, dividir y comprimir PDF, además de convertir imágenes a PDF. Sin registro y desde tu navegador." />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://pdflab-coe.pages.dev/" />
+    <meta name="google-site-verification" content="m9KMBVzfrkL-9mu0mw3bhD77L9j0Efg2nmo-NNXbjDE" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:site_name" content="PDFLab" />
+    <meta property="og:title" content="PDFLab | Herramientas PDF gratis: unir, dividir y comprimir" />
+    <meta property="og:description" content="PDFLab reúne herramientas gratuitas para unir, dividir y comprimir PDF, además de convertir imágenes a PDF. Sin registro y desde tu navegador." />
+    <meta property="og:url" content="https://pdflab-coe.pages.dev/" />
+    <meta name="twitter:card" content="summary" />
+    <title>PDFLab | Herramientas PDF gratis: unir, dividir y comprimir</title>
     <link rel="stylesheet" href="style.css" />
-
-    <!-- Crear y modificar PDF -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"
-      defer
-    ></script>
-
-    <!-- Visualizar PDF -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
-      defer
-    ></script>
-
-    <!-- Crear archivos ZIP -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
-      defer
-    ></script>
-
-    <!-- Código de PDFLab -->
-    <script src="script.js" defer></script>
   </head>
-
   <body>
     <header class="navbar">
-      <a href="#" class="logo">
+      <a href="index.html" class="logo" aria-label="PDFLab, página principal">
         <span class="logo-icon">P</span>
         PDF<span>Lab</span>
       </a>
-
-      <nav>
+      <nav aria-label="Navegación principal">
         <a href="#herramientas">Herramientas</a>
         <a href="#como-funciona">Cómo funciona</a>
-        <a
-          href="https://ko-fi.com/pdflabapp"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="donate-btn"
-        >
-          💜 Apoyar PDFLab
-        </a>
+        <a href="https://ko-fi.com/pdflabapp" target="_blank" rel="noopener noreferrer" class="donate-btn">💜 Apoyar PDFLab</a>
       </nav>
-
-      <a href="#herramientas" class="nav-button"> Explorar herramientas ↗ </a>
+      <a href="#herramientas" class="nav-button">Explorar herramientas ↗</a>
     </header>
 
     <main>
-      <!-- PANTALLA DE TRABAJO -->
-      <section id="workspaceScreen" class="workspace-screen" hidden>
-        <div class="workspace-header">
-          <button id="backToTools" class="back-button" type="button">
-            ← Volver a herramientas
-          </button>
-
-          <h1 id="workspaceTitle">Herramienta PDF</h1>
-
-          <p id="workspaceDescription">
-            Selecciona tus archivos para comenzar.
-          </p>
-        </div>
-
-        <div id="workspaceContent"></div>
-      </section>
-
-      <section class="hero" id="homeScreen">
-        <div class="status">
-          <span class="status-dot"></span>
-          TU ESTUDIO PDF EN EL NAVEGADOR
-        </div>
-
-        <h1>
-          Tus PDF, a tu manera.<br />
-          <span>Sin límites innecesarios.</span>
-        </h1>
-
+      <section class="hero" id="inicio">
+        <div class="status"><span class="status-dot"></span> TU ESTUDIO PDF EN EL NAVEGADOR</div>
+        <h1>Tus PDF, a tu manera.<br /><span>Sin límites innecesarios.</span></h1>
         <p class="hero-description">
-          Une, divide y transforma tus PDF desde un solo lugar. Gratis, fácil y
-          con privacidad como prioridad.
+          Une, divide, comprime y transforma tus documentos desde un solo lugar.
+          Herramientas gratuitas, fáciles de usar y con privacidad como prioridad.
         </p>
-
-        <div class="upload-zone" id="uploadZone" hidden>
-          <div class="upload-icon">↑</div>
-
-          <h2>Arrastra tus archivos aquí</h2>
-
-          <p>O selecciona un archivo desde tu dispositivo</p>
-
-          <label for="fileInput" class="primary-button">
-            Seleccionar archivos
-          </label>
-
-          <input
-            type="file"
-            id="fileInput"
-            accept=".pdf,application/pdf"
-            multiple
-            hidden
-          />
-
-          <p class="upload-note">
-            PDF · Tus archivos se procesan en este navegador
-          </p>
-        </div>
-
-        <div id="fileList" class="file-list" aria-live="polite"></div>
-        <div class="split-controls" id="splitControls" hidden>
-          <h3>Dividir PDF</h3>
-
-          <p>Selecciona un documento y las páginas que deseas extraer.</p>
-
-          <div class="page-selection-header">
-            <h3>Documento original</h3>
-            <span id="pageTotal">0 páginas</span>
-          </div>
-
-          <div id="pageGrid" class="page-grid">
-            <!-- Las páginas aparecerán aquí -->
-          </div>
-
-          <div class="page-selection-summary">
-            <span>↓</span>
-            <strong id="selectedPageCounter"> 0 páginas seleccionadas </strong>
-          </div>
-
-          <button id="selectAllPages" class="secondary-button" type="button">
-            Seleccionar todas
-          </button>
-
-          <button id="splitButton" class="primary-button" type="button">
-            Extraer páginas
-          </button>
-
-          <p id="splitMessage" role="status" aria-live="polite"></p>
-          <div
-            class="process-progress"
-            id="splitMessageProgress"
-            role="progressbar"
-            aria-label="Progreso del proceso"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            aria-valuenow="0"
-            hidden
-          >
-            <div class="process-progress-top">
-              <span class="process-progress-label">Preparando...</span
-              ><strong class="process-progress-percent">0%</strong>
-            </div>
-            <div class="process-progress-track">
-              <div class="process-progress-fill"></div>
-            </div>
-            <p class="process-progress-detail">Trabajando en tu navegador</p>
-          </div>
-        </div>
-
-        <!-- DIVISION AUTOMATICA -->
-        <div class="auto-split-controls" id="autoSplitControls" hidden>
-          <div class="auto-split-heading">
-            <span class="auto-split-icon">✂</span>
-            <div>
-              <h3>División automática</h3>
-              <p>Divide tu documento en varios archivos PDF.</p>
-            </div>
-          </div>
-
-          <label for="splitInterval">
-            ¿Cada cuántas páginas quieres dividirlo?
-          </label>
-
-          <div class="interval-input">
-            <input
-              type="number"
-              id="splitInterval"
-              min="1"
-              max="1000"
-              value="10"
-            />
-
-            <span>páginas por archivo</span>
-          </div>
-
-          <div class="auto-split-info">
-            <span>✦</span>
-            <p>
-              Los documentos se generarán respetando el orden original de las
-              páginas.
-            </p>
-          </div>
-
-          <button id="autoSplitButton" class="primary-button" type="button">
-            Dividir automáticamente
-          </button>
-
-          <p id="autoSplitMessage" role="status" aria-live="polite"></p>
-          <div
-            class="process-progress"
-            id="autoSplitMessageProgress"
-            role="progressbar"
-            aria-label="Progreso del proceso"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            aria-valuenow="0"
-            hidden
-          >
-            <div class="process-progress-top">
-              <span class="process-progress-label">Preparando...</span
-              ><strong class="process-progress-percent">0%</strong>
-            </div>
-            <div class="process-progress-track">
-              <div class="process-progress-fill"></div>
-            </div>
-            <p class="process-progress-detail">Trabajando en tu navegador</p>
-          </div>
-        </div>
-
-        <!-- COMPRESION PDF -->
-        <div class="compress-controls" id="compressControls" hidden>
-          <div class="compress-heading">
-            <span class="compress-icon">↓</span>
-            <div>
-              <h3>Comprimir PDF</h3>
-              <p>Reduce el tamaño de tus documentos.</p>
-            </div>
-          </div>
-
-          <label for="compressionLevel"> Nivel de compresión </label>
-
-          <select id="compressionLevel">
-            <option value="light">Ligera — Mayor calidad</option>
-            <option value="recommended" selected>
-              Recomendada — Equilibrada
-            </option>
-            <option value="extreme">Extrema — Menor tamaño</option>
-          </select>
-
-          <div class="compress-info">
-            <span>✦</span>
-            <p>
-              La compresión puede reducir la calidad y convertir las páginas en
-              imágenes. Tu archivo original no será modificado.
-            </p>
-          </div>
-
-          <button id="compressButton" class="primary-button" type="button">
-            Comprimir PDF
-          </button>
-
-          <p id="compressMessage" role="status" aria-live="polite"></p>
-          <div
-            class="process-progress"
-            id="compressMessageProgress"
-            role="progressbar"
-            aria-label="Progreso del proceso"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            aria-valuenow="0"
-            hidden
-          >
-            <div class="process-progress-top">
-              <span class="process-progress-label">Preparando...</span
-              ><strong class="process-progress-percent">0%</strong>
-            </div>
-            <div class="process-progress-track">
-              <div class="process-progress-fill"></div>
-            </div>
-            <p class="process-progress-detail">Trabajando en tu navegador</p>
-          </div>
-          <!-- COMPARACION DE TAMAÑOS -->
-          <div id="compressionResults" class="compression-results" hidden>
-            <h4>Resultado de optimización</h4>
-
-            <div class="size-comparison">
-              <div class="size-item">
-                <span>Original</span>
-                <strong id="originalSize">0 KB</strong>
-                <div class="size-track">
-                  <div id="originalBar" class="size-bar original-bar"></div>
-                </div>
-              </div>
-
-              <div class="size-item">
-                <span>Nuevo documento</span>
-                <strong id="compressedSize">0 KB</strong>
-                <div class="size-track">
-                  <div id="compressedBar" class="size-bar compressed-bar"></div>
-                </div>
-              </div>
-            </div>
-
-            <div id="compressionSaving" class="compression-saving">0%</div>
-
-            <p id="compressionStatus"></p>
-          </div>
-        </div>
-
-        <!-- IMAGENES A PDF -->
-        <div class="image-pdf-controls" id="imagePdfControls" hidden>
-          <div class="image-pdf-heading">
-            <span class="image-pdf-icon">🖼️</span>
-
-            <div>
-              <h3>Imágenes a PDF</h3>
-              <p>Convierte tus fotografías en documentos PDF.</p>
-            </div>
-          </div>
-
-          <!-- Selector de imágenes -->
-          <label
-            for="imageInput"
-            class="image-upload-area"
-            id="imageUploadArea"
-          >
-            <span class="upload-icon">＋</span>
-
-            <strong>Seleccionar imágenes</strong>
-
-            <span>JPG, PNG y WEBP</span>
-
-            <input
-              type="file"
-              id="imageInput"
-              accept="image/jpeg,image/png,image/webp"
-              multiple
-              hidden
-            />
-          </label>
-
-          <!-- Contador -->
-          <div class="image-pdf-counter" id="imagePdfCounter" hidden>
-            <span id="imageCount">0 imágenes seleccionadas</span>
-
-            <button type="button" id="clearImagesButton">Quitar todas</button>
-          </div>
-
-          <!-- Miniaturas -->
-          <div class="image-preview-grid" id="imagePreviewGrid"></div>
-
-          <!-- OPCIONES DE PAGINA -->
-          <div class="image-pdf-options">
-            <h4>Configuración del documento</h4>
-
-            <div class="image-option-group">
-              <label for="imagePageSize">Tamaño de hoja</label>
-              <select id="imagePageSize">
-                <option value="a4">A4</option>
-                <option value="letter">Carta</option>
-                <option value="original">Tamaño original</option>
-              </select>
-            </div>
-
-            <div class="image-option-group">
-              <label for="imageOrientation">Orientación</label>
-              <select id="imageOrientation">
-                <option value="auto">Automática</option>
-                <option value="portrait">Vertical</option>
-                <option value="landscape">Horizontal</option>
-              </select>
-            </div>
-
-            <div class="image-option-group">
-              <label for="imageMargin">Márgenes</label>
-              <select id="imageMargin">
-                <option value="0">Sin márgenes</option>
-                <option value="12">Pequeños</option>
-                <option value="30" selected>Normales</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Nombre del PDF -->
-          <label for="imagePdfName"> Nombre del documento </label>
-
-          <input
-            type="text"
-            id="imagePdfName"
-            value="PDFLab_Documento"
-            maxlength="80"
-          />
-
-          <!-- Botón de conversión -->
-          <button
-            type="button"
-            id="convertImagesButton"
-            class="primary-button"
-            disabled
-          >
-            Convertir imágenes a PDF
-          </button>
-
-          <!-- PROGRESO DE CONVERSIÓN -->
-          <div id="imagePdfProgress" class="image-pdf-progress" hidden>
-            <div class="image-progress-info">
-              <span id="imageProgressText">Preparando imágenes...</span>
-              <span id="imageProgressPercent">0%</span>
-            </div>
-
-            <div class="image-progress-track">
-              <div id="imageProgressBar" class="image-progress-bar"></div>
-            </div>
-          </div>
-
-          <p id="imagePdfMessage" role="status" aria-live="polite"></p>
-
-          <!-- ===== VISTA PREVIA DEL PDF ===== -->
-          <section id="imagePdfPreview" class="image-pdf-preview" hidden>
-            <h3>Vista previa del documento</h3>
-
-            <p class="preview-description">
-              Revisa las páginas antes de descargar tu PDF.
-            </p>
-
-            <div class="pdf-preview-viewer">
-              <canvas id="imagePdfPreviewCanvas"></canvas>
-            </div>
-
-            <div class="pdf-preview-navigation">
-              <button id="previewPreviousPage" type="button">← Anterior</button>
-
-              <span id="previewPageCounter">Página 1 de 1</span>
-
-              <button id="previewNextPage" type="button">Siguiente →</button>
-            </div>
-          </section>
-        </div>
-
-        <div class="merge-controls" id="mergeControls" hidden>
-          <p id="fileCounter">0 archivos seleccionados</p>
-
-          <button id="mergeButton" class="primary-button" type="button">
-            Unir archivos PDF
-          </button>
-
-          <p id="mergeMessage" role="status" aria-live="polite"></p>
-          <div
-            class="process-progress"
-            id="mergeMessageProgress"
-            role="progressbar"
-            aria-label="Progreso del proceso"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            aria-valuenow="0"
-            hidden
-          >
-            <div class="process-progress-top">
-              <span class="process-progress-label">Preparando...</span
-              ><strong class="process-progress-percent">0%</strong>
-            </div>
-            <div class="process-progress-track">
-              <div class="process-progress-fill"></div>
-            </div>
-            <p class="process-progress-detail">Trabajando en tu navegador</p>
-          </div>
-        </div>
-
-        <p class="privacy-note">
-          <span>✦</span> Tus documentos se procesan localmente en el navegador
-        </p>
+        <a href="#herramientas" class="primary-button hero-cta">Explorar herramientas PDF</a>
+        <p class="hero-note">Sin registro · Sin instalar programas · Procesamiento local</p>
       </section>
 
       <section class="trust-strip" aria-label="Ventajas de PDFLab">
-        <span>✦ Sin registro</span><span>⌁ Procesamiento local</span
-        ><span>↗ Descarga directa</span><span>∞ Herramientas gratuitas</span>
+        <span>✦ Sin registro</span>
+        <span>⌁ Procesamiento local</span>
+        <span>↗ Descarga directa</span>
+        <span>∞ Herramientas gratuitas</span>
       </section>
+
       <section class="tools-section" id="herramientas">
         <div class="section-heading">
           <div>
             <p class="eyebrow">CAJA DE HERRAMIENTAS</p>
-            <h2>Todo lo que necesitas.</h2>
+            <h2>Todo lo que necesitas para tus PDF.</h2>
           </div>
-
           <span class="tool-count">04 HERRAMIENTAS</span>
         </div>
 
         <div class="tools-grid">
-          <article class="tool-card" data-tool="merge">
+          <a class="tool-card" href="unir-pdf.html">
             <div class="tool-icon purple">⇄</div>
             <span class="tool-tag">PDF + PDF</span>
             <h3>Unir PDF</h3>
-            <p>Combina varios documentos en un único archivo.</p>
+            <p>Combina varios documentos en un único archivo y organiza el orden de las páginas.</p>
             <span class="tool-action">Abrir herramienta ↗</span>
-          </article>
+          </a>
 
-          <article class="tool-card" data-tool="split">
+          <a class="tool-card" href="dividir-pdf.html">
             <div class="tool-icon pink">✂</div>
             <span class="tool-tag">PÁGINAS</span>
             <h3>Dividir PDF</h3>
-            <p>Separa páginas y crea documentos independientes.</p>
+            <p>Extrae páginas específicas o separa un documento en varios archivos.</p>
             <span class="tool-action">Abrir herramienta ↗</span>
-          </article>
+          </a>
 
-          <article class="tool-card" data-tool="compress">
+          <a class="tool-card" href="comprimir-pdf.html">
             <div class="tool-icon blue">↓</div>
             <span class="tool-tag">OPTIMIZACIÓN</span>
             <h3>Comprimir PDF</h3>
-            <p>Reduce el tamaño de tus documentos cuando sea posible.</p>
+            <p>Prueba distintos niveles para reducir el tamaño de tus documentos.</p>
             <span class="tool-action">Abrir herramienta ↗</span>
-          </article>
+          </a>
 
-          <article class="tool-card" data-tool="images">
+          <a class="tool-card" href="imagenes-a-pdf.html">
             <div class="tool-icon green">▧</div>
             <span class="tool-tag">IMÁGENES</span>
             <h3>Imagen a PDF</h3>
-            <p>Convierte tus imágenes en documentos PDF.</p>
+            <p>Convierte imágenes JPG, PNG y WEBP en un documento PDF.</p>
             <span class="tool-action">Abrir herramienta ↗</span>
-          </article>
+          </a>
         </div>
       </section>
 
@@ -541,60 +98,39 @@
         <p class="eyebrow">SIMPLE POR DISEÑO</p>
         <h2>Menos vueltas. Más resultados.</h2>
         <p>
-          Selecciona una herramienta, trabaja con tus archivos y descarga el
-          resultado. Sin registros ni pasos innecesarios.
+          Elige la herramienta que necesitas, selecciona tus archivos y descarga
+          el resultado. PDFLab procesa tus documentos en el navegador, sin crear
+          una cuenta ni instalar programas.
         </p>
+      </section>
+
+      <section class="home-seo-content">
+        <div>
+          <p class="eyebrow">PDFLAB</p>
+          <h2>Herramientas PDF gratuitas y fáciles de usar</h2>
+          <p>
+            PDFLab reúne funciones para trabajar con documentos PDF desde una
+            misma página. Puedes combinar varios archivos, extraer páginas,
+            intentar reducir el tamaño de un documento o crear un PDF a partir
+            de imágenes. Cada herramienta tiene su propia página para que puedas
+            abrirla directamente y compartir su enlace.
+          </p>
+        </div>
+        <div class="home-seo-links">
+          <a href="unir-pdf.html">Unir archivos PDF</a>
+          <a href="dividir-pdf.html">Dividir y extraer páginas PDF</a>
+          <a href="comprimir-pdf.html">Comprimir documentos PDF</a>
+          <a href="imagenes-a-pdf.html">Convertir imágenes JPG, PNG y WEBP a PDF</a>
+        </div>
       </section>
     </main>
 
     <footer>
-      <a href="#" class="logo">
+      <a href="index.html" class="logo" aria-label="PDFLab, página principal">
         <span class="logo-icon">P</span>
         PDF<span>Lab</span>
       </a>
-
       <p>Hecho para simplificar tus PDF. © 2026 PDFLab</p>
     </footer>
-    <!-- Ventana flotante de donaciones -->
-    <div id="donationModal" class="donation-modal" hidden>
-      <div
-        class="donation-modal-content"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="donationTitle"
-      >
-        <button
-          type="button"
-          id="closeDonationModal"
-          class="donation-close"
-          aria-label="Cerrar ventana"
-        >
-          &times;
-        </button>
-
-        <div class="donation-heart">💜</div>
-
-        <h2 id="donationTitle">¡Tu archivo está listo! 🎉</h2>
-
-        <p>
-          PDFLab es gratuito y queremos que siga siéndolo. Si nuestra
-          herramienta te ayudó, puedes apoyar el proyecto con una donación
-          voluntaria.
-        </p>
-
-        <a
-          href="https://ko-fi.com/pdflabapp"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="donation-support-btn"
-        >
-          💜 Apoyar PDFLab
-        </a>
-
-        <button type="button" id="skipDonation" class="donation-skip">
-          Ahora no, seguir usando PDFLab
-        </button>
-      </div>
-    </div>
   </body>
 </html>
