@@ -67,11 +67,14 @@ let selectedPageIndices = new Set();
 
 // Control para evitar cargar dos veces el mismo documento
 let selectorVersion = 0;
-// Configuración del trabajador de PDF.js
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+// Configuración del trabajador de PDF.js cuando la página lo necesita.
+if (typeof pdfjsLib !== "undefined") {
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+}
 
 let selectedFiles = [];
+const herramientaActiva = document.body.dataset.tool || null;
 
 function formatFileSize(bytes) {
   if (bytes < 1024) {
@@ -86,17 +89,30 @@ function formatFileSize(bytes) {
 }
 
 function renderFiles() {
-  fileList.replaceChildren();
-  mergeControls.hidden =
-    herramientaActiva !== "merge" || selectedFiles.length < 2;
-  splitControls.hidden =
-    herramientaActiva !== "split" || selectedFiles.length !== 1;
-  autoSplitControls.hidden =
-    herramientaActiva !== "split" || selectedFiles.length !== 1;
-  compressControls.hidden =
-    herramientaActiva !== "compress" || selectedFiles.length !== 1;
+  if (!fileList) return;
 
-  fileCounter.textContent = `${selectedFiles.length} archivos seleccionados`;
+  fileList.replaceChildren();
+
+  if (mergeControls) {
+    mergeControls.hidden =
+      herramientaActiva !== "merge" || selectedFiles.length < 2;
+  }
+  if (splitControls) {
+    splitControls.hidden =
+      herramientaActiva !== "split" || selectedFiles.length !== 1;
+  }
+  if (autoSplitControls) {
+    autoSplitControls.hidden =
+      herramientaActiva !== "split" || selectedFiles.length !== 1;
+  }
+  if (compressControls) {
+    compressControls.hidden =
+      herramientaActiva !== "compress" || selectedFiles.length !== 1;
+  }
+
+  if (fileCounter) {
+    fileCounter.textContent = `${selectedFiles.length} archivos seleccionados`;
+  }
 
   selectedFiles.forEach((file, index) => {
     const item = document.createElement("div");
@@ -163,7 +179,7 @@ function renderFiles() {
     fileList.append(item);
   });
 
-  if (herramientaActiva === "split") {
+  if (herramientaActiva === "split" && pageGrid) {
     actualizarSelectorPaginas();
   } else {
     selectorVersion++;
@@ -196,25 +212,25 @@ function addFiles(files) {
   renderFiles();
 }
 
-fileInput.addEventListener("change", (event) => {
+fileInput?.addEventListener("change", (event) => {
   addFiles(event.target.files);
 
   // Permite volver a seleccionar el mismo archivo.
   fileInput.value = "";
 });
 
-uploadZone.addEventListener("dragover", (event) => {
+uploadZone?.addEventListener("dragover", (event) => {
   event.preventDefault();
   uploadZone.classList.add("dragging");
 });
 
-uploadZone.addEventListener("dragleave", (event) => {
+uploadZone?.addEventListener("dragleave", (event) => {
   if (!uploadZone.contains(event.relatedTarget)) {
     uploadZone.classList.remove("dragging");
   }
 });
 
-uploadZone.addEventListener("drop", (event) => {
+uploadZone?.addEventListener("drop", (event) => {
   event.preventDefault();
   uploadZone.classList.remove("dragging");
 
@@ -336,7 +352,7 @@ async function unirPDF() {
   }
 }
 
-mergeButton.addEventListener("click", unirPDF);
+mergeButton?.addEventListener("click", unirPDF);
 
 function interpretarPaginas(texto, totalPaginas) {
   // Separamos los rangos por comas.
@@ -657,7 +673,7 @@ async function dividirAutomaticamente() {
   }
 }
 
-autoSplitButton.addEventListener("click", dividirAutomaticamente);
+autoSplitButton?.addEventListener("click", dividirAutomaticamente);
 
 async function comprimirPDF() {
   // Comprobar que exista un PDF seleccionado.
@@ -909,9 +925,9 @@ async function comprimirPDF() {
   }
 }
 
-compressButton.addEventListener("click", comprimirPDF);
+compressButton?.addEventListener("click", comprimirPDF);
 
-splitButton.addEventListener("click", dividirPDF);
+splitButton?.addEventListener("click", dividirPDF);
 
 async function actualizarSelectorPaginas() {
   const versionActual = ++selectorVersion;
@@ -1061,8 +1077,8 @@ function actualizarContadorPaginas() {
   selectedPageCounter.textContent = `${cantidad} ${cantidad === 1 ? "página seleccionada" : "páginas seleccionadas"}`;
 }
 
-selectAllPages.addEventListener("click", () => {
-  const total = selectedFiles.length === 1 ? pageGrid.children.length : 0;
+selectAllPages?.addEventListener("click", () => {
+  const total = selectedFiles.length === 1 && pageGrid ? pageGrid.children.length : 0;
 
   const todasSeleccionadas = selectedPageIndices.size === total;
 
@@ -1085,18 +1101,17 @@ selectAllPages.addEventListener("click", () => {
     : "Deseleccionar todas";
 });
 
-/* ===== NAVEGACIÓN PDFLAB 2.0 ===== */
+/* ===== INICIALIZACIÓN DE HERRAMIENTAS EN PÁGINAS INDEPENDIENTES ===== */
 
-const homeScreen = document.getElementById("homeScreen");
-const workspaceScreen = document.getElementById("workspaceScreen");
-const workspaceTitle = document.getElementById("workspaceTitle");
-const workspaceDescription = document.getElementById("workspaceDescription");
-const workspaceContent = document.getElementById("workspaceContent");
-const imagePdfControls = document.getElementById("imagePdfControls");
+// Cada archivo HTML declara su herramienta con data-tool en el <body>.
+// El mismo motor JavaScript se reutiliza sin cargar controles que no pertenecen
+// a la herramienta actual.
+
+/* ===== ELEMENTOS DE LA HERRAMIENTA IMÁGENES A PDF ===== */
+
 const imagePageSize = document.getElementById("imagePageSize");
 const imageOrientation = document.getElementById("imageOrientation");
 const imageMargin = document.getElementById("imageMargin");
-/* ===== IMÁGENES A PDF ===== */
 
 const imageInput = document.getElementById("imageInput");
 const imageUploadArea = document.getElementById("imageUploadArea");
@@ -1111,42 +1126,16 @@ const imageProgressText = document.getElementById("imageProgressText");
 const imageProgressPercent = document.getElementById("imageProgressPercent");
 const imageProgressBar = document.getElementById("imageProgressBar");
 
-/* ===== ELEMENTOS DE VISTA PREVIA ===== */
-
 const imagePdfPreview = document.getElementById("imagePdfPreview");
-
 const imagePdfPreviewCanvas = document.getElementById("imagePdfPreviewCanvas");
-
 const previewPreviousPage = document.getElementById("previewPreviousPage");
-
 const previewNextPage = document.getElementById("previewNextPage");
-
 const previewPageCounter = document.getElementById("previewPageCounter");
 
 let previewPdfDocument = null;
 let previewCurrentPage = 1;
-
-// Guardaremos aquí las fotografías seleccionadas.
 let selectedImages = [];
-
 let convirtiendoImagenes = false;
-
-/* ===== ACTUALIZAR PROGRESO ===== */
-
-function actualizarProgresoImagenes(actual, total) {
-  const porcentaje = Math.round((actual / total) * 100);
-
-  imagePdfProgress.hidden = false;
-
-  imageProgressText.textContent = `Procesando imagen ${actual} de ${total}`;
-
-  imageProgressPercent.textContent = `${porcentaje}%`;
-
-  imageProgressBar.style.width = `${porcentaje}%`;
-}
-
-/* ===== ROTACIÓN INDIVIDUAL DE IMÁGENES ===== */
-
 let imageRotations = [];
 
 function obtenerRotacion(indice) {
@@ -1155,122 +1144,9 @@ function obtenerRotacion(indice) {
 
 function girarImagen(indice, grados) {
   const rotacionActual = obtenerRotacion(indice);
-
   imageRotations[indice] = (rotacionActual + grados + 360) % 360;
-
   renderImages();
 }
-
-const backToTools = document.getElementById("backToTools");
-
-const toolsSection = document.getElementById("herramientas");
-const howSection = document.getElementById("como-funciona");
-
-let herramientaActiva = null;
-const herramientas = {
-  merge: {
-    titulo: "Unir PDF",
-    descripcion: "Combina varios archivos PDF en un documento.",
-  },
-  split: {
-    titulo: "Dividir PDF",
-    descripcion: "Selecciona las páginas que quieres extraer.",
-  },
-  compress: {
-    titulo: "Comprimir PDF",
-    descripcion: "Intenta reducir el tamaño de tu documento.",
-  },
-  images: {
-    titulo: "Imágenes a PDF",
-    descripcion: "Convierte tus fotografías en un documento PDF.",
-  },
-};
-
-document.querySelectorAll(".tool-card[data-tool]").forEach((tarjeta) => {
-  tarjeta.style.cursor = "pointer";
-
-  tarjeta.addEventListener("click", () => {
-    const herramienta = tarjeta.dataset.tool;
-    if (herramientaActiva !== herramienta) {
-      selectedFiles = [];
-      renderFiles();
-    }
-    herramientaActiva = herramienta;
-    const configuracion = herramientas[herramienta];
-
-    if (!configuracion) return;
-
-    workspaceTitle.textContent = configuracion.titulo;
-    workspaceDescription.textContent = configuracion.descripcion;
-
-    homeScreen.hidden = true;
-    toolsSection.hidden = true;
-    howSection.hidden = true;
-
-    workspaceScreen.hidden = false;
-
-    if (herramienta === "images") {
-      workspaceContent.appendChild(imagePdfControls);
-      imagePdfControls.hidden = false;
-    }
-
-    if (herramienta === "merge") {
-      workspaceContent.appendChild(uploadZone);
-      workspaceContent.appendChild(fileList);
-      workspaceContent.appendChild(mergeControls);
-
-      uploadZone.hidden = false;
-      mergeControls.hidden = selectedFiles.length < 2;
-    }
-
-    if (herramienta === "split") {
-      workspaceContent.appendChild(uploadZone);
-      workspaceContent.appendChild(fileList);
-      workspaceContent.appendChild(splitControls);
-      workspaceContent.appendChild(autoSplitControls);
-
-      uploadZone.hidden = false;
-      mergeControls.hidden = true;
-      splitControls.hidden = selectedFiles.length !== 1;
-      autoSplitControls.hidden = selectedFiles.length !== 1;
-    }
-
-    if (herramienta === "compress") {
-      workspaceContent.appendChild(uploadZone);
-      workspaceContent.appendChild(fileList);
-      workspaceContent.appendChild(compressControls);
-
-      uploadZone.hidden = false;
-      mergeControls.hidden = true;
-      splitControls.hidden = true;
-
-      compressControls.hidden = selectedFiles.length !== 1;
-    }
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-});
-
-backToTools.addEventListener("click", () => {
-  imagePdfControls.hidden = true;
-  uploadZone.hidden = true;
-  mergeControls.hidden = true;
-  splitControls.hidden = true;
-  autoSplitControls.hidden = true;
-  compressControls.hidden = true;
-  herramientaActiva = null;
-  selectedFiles = [];
-  fileList.replaceChildren();
-  fileInput.value = "";
-
-  workspaceScreen.hidden = true;
-
-  homeScreen.hidden = false;
-  toolsSection.hidden = false;
-  howSection.hidden = false;
-
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
 
 /* ===== MOSTRAR MINIATURAS ===== */
 
@@ -1475,7 +1351,7 @@ function agregarImagenes(archivos) {
 
 /* ===== SELECCIONAR DESDE EL DISPOSITIVO ===== */
 
-imageInput.addEventListener("change", (evento) => {
+imageInput?.addEventListener("change", (evento) => {
   agregarImagenes(evento.target.files);
 
   // Permite volver a seleccionar la misma fotografía.
@@ -1484,20 +1360,20 @@ imageInput.addEventListener("change", (evento) => {
 
 /* ===== ARRASTRAR Y SOLTAR IMÁGENES ===== */
 
-imageUploadArea.addEventListener("dragover", (evento) => {
+imageUploadArea?.addEventListener("dragover", (evento) => {
   evento.preventDefault();
 
   evento.dataTransfer.dropEffect = "copy";
   imageUploadArea.classList.add("dragging");
 });
 
-imageUploadArea.addEventListener("dragleave", (evento) => {
+imageUploadArea?.addEventListener("dragleave", (evento) => {
   if (!imageUploadArea.contains(evento.relatedTarget)) {
     imageUploadArea.classList.remove("dragging");
   }
 });
 
-imageUploadArea.addEventListener("drop", (evento) => {
+imageUploadArea?.addEventListener("drop", (evento) => {
   evento.preventDefault();
 
   imageUploadArea.classList.remove("dragging");
@@ -1507,7 +1383,7 @@ imageUploadArea.addEventListener("drop", (evento) => {
 
 /* ===== ELIMINAR TODAS LAS IMÁGENES ===== */
 
-clearImagesButton.addEventListener("click", () => {
+clearImagesButton?.addEventListener("click", () => {
   selectedImages = [];
   imageRotations = [];
   imageInput.value = "";
@@ -1616,7 +1492,7 @@ async function abrirVistaPreviaPDF(pdfBytes) {
 
 /* ===== NAVEGACION DE LA VISTA PREVIA ===== */
 
-previewPreviousPage.addEventListener("click", async () => {
+previewPreviousPage?.addEventListener("click", async () => {
   if (!previewPdfDocument || previewCurrentPage <= 1) return;
 
   previewCurrentPage--;
@@ -1624,7 +1500,7 @@ previewPreviousPage.addEventListener("click", async () => {
   await mostrarPaginaPreview();
 });
 
-previewNextPage.addEventListener("click", async () => {
+previewNextPage?.addEventListener("click", async () => {
   if (!previewPdfDocument || previewCurrentPage >= previewPdfDocument.numPages)
     return;
 
@@ -1890,7 +1766,7 @@ async function convertirImagenesAPDF() {
 
 /* ===== BOTÓN DE CONVERSIÓN ===== */
 
-convertImagesButton.addEventListener("click", convertirImagenesAPDF);
+convertImagesButton?.addEventListener("click", convertirImagenesAPDF);
 
 /* =====================================
    PDFLab - Sistema de donaciones
