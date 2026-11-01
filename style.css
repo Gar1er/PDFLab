@@ -2158,7 +2158,6 @@ body {
   }
 }
 
-
 /* ===== PDFLAB: PORTADA Y PAGINAS INDEPENDIENTES ===== */
 
 .tool-card {
@@ -2451,5 +2450,1331 @@ body {
 
   .tool-page-lead {
     font-size: 13px;
+  }
+}
+
+/* ==================================
+   PÁGINA SOBRE PDFLAB
+================================== */
+
+.about-card {
+  max-width: 850px;
+  margin: 60px auto;
+  padding: 40px;
+  line-height: 1.9;
+  background: rgba(20, 15, 35, 0.85);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 24px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 600px) {
+  .about-card {
+    margin: 24px auto;
+    padding: 24px;
+  }
+}
+
+/* Enlace para regresar a PDFLab */
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #b794f6;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: #d8b4fe;
+  text-decoration: underline;
+}
+
+.back-link:focus-visible {
+  outline: 2px solid #d8b4fe;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ==========================================
+   SOBRE PDFLAB — REDISEÑO
+========================================== */
+
+.about-page {
+  min-height: 100vh;
+  color: #f8f5ff;
+  background:
+    radial-gradient(
+      ellipse at 50% 5%,
+      rgba(111, 47, 203, 0.23),
+      transparent 48%
+    ),
+    #0d0917;
+}
+
+/* Barra superior */
+
+.about-header {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.about-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.about-logo-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  color: white;
+  background: linear-gradient(135deg, #7c3aed, #c026d3);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+}
+
+.about-nav-link {
+  color: #c9b8e6;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.about-nav-link:hover {
+  color: white;
+}
+
+/* Portada principal */
+
+.about-hero {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px 24px 85px;
+  text-align: center;
+}
+
+.about-eyebrow {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #c4a2ff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+}
+
+.about-hero h1 {
+  margin: 0 auto 25px;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  line-height: 1.1;
+  letter-spacing: -2px;
+  font-weight: 900;
+}
+
+.about-hero h1 span {
+  color: #b879ff;
+  background: linear-gradient(90deg, #a78bfa, #e879f9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.about-hero p {
+  max-width: 620px;
+  margin: 0 auto 32px;
+  color: #c7bdd6;
+  font-size: 1.12rem;
+  line-height: 1.8;
+}
+
+.about-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 28px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.about-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 38px rgba(168, 85, 247, 0.45);
+}
+
+/* Secciones */
+
+.about-section {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 70px 24px;
+}
+
+.about-section-heading {
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+.about-section h2,
+.about-closing h2 {
+  margin: 0 0 18px;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  line-height: 1.2;
+}
+
+.about-section-heading p,
+.about-closing p {
+  color: #bdb0cf;
+  line-height: 1.8;
+}
+
+/* Tarjetas de herramientas */
+
+.about-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.about-tool-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 28px 22px;
+  border: 1px solid rgba(168, 85, 247, 0.23);
+  border-radius: 20px;
+  background: rgba(35, 25, 54, 0.7);
+  color: #fff;
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+
+.about-tool-card:hover {
+  transform: translateY(-6px);
+  border-color: #a855f7;
+  background: rgba(65, 38, 101, 0.75);
+}
+
+.about-tool-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 22px;
+  border-radius: 15px;
+  background: rgba(168, 85, 247, 0.16);
+  color: #d8b4fe;
+  font-size: 1.8rem;
+}
+
+.about-tool-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+}
+
+.about-tool-card p {
+  flex: 1;
+  margin: 0 0 22px;
+  color: #bdb0cf;
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+.about-tool-arrow {
+  color: #c4a2ff;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* Misión */
+
+.about-mission {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 55px;
+  border-top: 1px solid rgba(168, 85, 247, 0.15);
+}
+
+.about-mission p {
+  color: #c7bdd6;
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+/* Privacidad */
+
+.about-privacy {
+  padding: 65px 35px;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 28px;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(124, 58, 237, 0.18),
+      transparent 65%
+    ),
+    #1b142b;
+  text-align: center;
+}
+
+.about-privacy-icon {
+  display: grid;
+  place-items: center;
+  width: 65px;
+  height: 65px;
+  margin: 0 auto 25px;
+  border-radius: 20px;
+  background: rgba(168, 85, 247, 0.18);
+  color: #d8b4fe;
+  font-size: 2.2rem;
+}
+
+.about-privacy p {
+  max-width: 650px;
+  margin: 0 auto;
+  color: #c7bdd6;
+  line-height: 1.9;
+}
+
+/* Cierre y pie de página */
+
+.about-closing {
+  padding: 85px 24px 110px;
+  text-align: center;
+}
+
+.about-closing p {
+  max-width: 520px;
+  margin: 0 auto 28px;
+}
+
+.about-footer {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid rgba(168, 85, 247, 0.2);
+  color: #a99bbd;
+  font-size: 0.9rem;
+}
+
+/* Accesibilidad */
+
+.about-page a:focus-visible {
+  outline: 2px solid #d8b4fe;
+  outline-offset: 4px;
+}
+
+/* Tablets */
+
+@media (max-width: 900px) {
+  .about-tools-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-mission {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+/* Celulares */
+
+@media (max-width: 600px) {
+  .about-header {
+    padding: 20px 16px;
+  }
+
+  .about-logo {
+    font-size: 1.25rem;
+  }
+
+  .about-nav-link {
+    font-size: 0.85rem;
+  }
+
+  .about-hero {
+    padding: 75px 20px 85px;
+  }
+
+  .about-hero h1 {
+    letter-spacing: -1px;
+  }
+
+  .about-section {
+    padding: 45px 18px;
+  }
+
+  .about-tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-tool-card {
+    padding: 25px;
+  }
+
+  .about-privacy {
+    padding: 45px 22px;
+  }
+
+  .about-closing {
+    padding: 70px 20px;
+  }
+
+  .about-footer {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-button,
+  .about-tool-card {
+    transition: none;
+  }
+
+  .about-button:hover,
+  .about-tool-card:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================
+   POLÍTICA DE PRIVACIDAD — PDFLAB
+========================================== */
+
+/* Portada */
+
+.privacy-hero {
+  padding-top: 85px;
+  padding-bottom: 75px;
+}
+
+/* Tarjetas de resumen */
+
+.privacy-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.privacy-summary-card {
+  padding: 30px 25px;
+  background: rgba(35, 25, 54, 0.7);
+  border: 1px solid rgba(168, 85, 247, 0.23);
+  border-radius: 20px;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.privacy-summary-card:hover {
+  transform: translateY(-5px);
+  border-color: #a855f7;
+}
+
+.privacy-summary-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  background: rgba(168, 85, 247, 0.17);
+  color: #d8b4fe;
+  font-size: 1.7rem;
+}
+
+.privacy-summary-card h3 {
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+.privacy-summary-card p {
+  margin: 0;
+  color: #bdb0cf;
+  font-size: 0.94rem;
+  line-height: 1.8;
+}
+
+/* Contenido de la política */
+
+.privacy-content {
+  max-width: 950px;
+  padding-top: 35px;
+}
+
+.privacy-block {
+  display: grid;
+  grid-template-columns: 55px minmax(0, 1fr);
+  gap: 25px;
+  padding: 35px 0;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.17);
+}
+
+.privacy-block:last-child {
+  border-bottom: none;
+}
+
+.privacy-number {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 14px;
+  background: rgba(124, 58, 237, 0.15);
+  color: #c4a2ff;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.privacy-block h2 {
+  margin: 0 0 20px;
+  color: #f8f5ff;
+  font-size: 1.55rem;
+}
+
+.privacy-block p {
+  margin: 0 0 16px;
+  color: #c7bdd6;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.privacy-block p:last-child {
+  margin-bottom: 0;
+}
+
+/* Adaptación para tablets */
+
+@media (max-width: 900px) {
+  .privacy-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Adaptación para celulares */
+
+@media (max-width: 600px) {
+  .privacy-hero {
+    padding-top: 65px;
+    padding-bottom: 55px;
+  }
+
+  .privacy-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .privacy-summary-card {
+    padding: 25px;
+  }
+
+  .privacy-block {
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 15px;
+    padding: 28px 0;
+  }
+
+  .privacy-number {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    font-size: 0.8rem;
+  }
+
+  .privacy-block h2 {
+    font-size: 1.25rem;
+  }
+
+  .privacy-block p {
+    font-size: 0.94rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .privacy-summary-card {
+    transition: none;
+  }
+
+  .privacy-summary-card:hover {
+    transform: none;
+  }
+}
+
+/* =========================================
+   TERMINOS Y CONDICIONES - PDFLAB
+========================================= */
+
+.terms-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      ellipse at 50% 10%,
+      rgba(112, 70, 190, 0.2),
+      transparent 50%
+    ),
+    #0b0913;
+  color: #f5f2ff;
+  font-family: inherit;
+  padding: 0 6%;
+}
+
+/* HEADER */
+
+.terms-header {
+  max-width: 1250px;
+  margin: auto;
+  padding: 35px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.terms-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.terms-logo {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #b54cff, #7136c9);
+  box-shadow: 0 0 22px rgba(181, 76, 255, 0.35);
+}
+
+.terms-back {
+  color: #d8c9f5;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+.terms-back:hover {
+  color: #fff;
+}
+
+/* CONTENEDOR */
+
+.terms-main {
+  max-width: 1050px;
+  margin: auto;
+  padding-bottom: 90px;
+}
+
+/* HERO */
+
+.terms-hero {
+  text-align: center;
+  padding: 95px 20px 85px;
+}
+
+.terms-eyebrow {
+  display: inline-block;
+  color: #c995ff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  margin-bottom: 22px;
+}
+
+.terms-hero h1 {
+  font-size: clamp(2.8rem, 7vw, 5.3rem);
+  line-height: 1.08;
+  font-weight: 900;
+  letter-spacing: -2px;
+  margin: 0 auto 25px;
+  max-width: 850px;
+}
+
+.terms-hero h1 span {
+  display: block;
+  background: linear-gradient(90deg, #e9d5ff, #bc82ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.terms-hero p {
+  max-width: 680px;
+  margin: auto;
+  color: #c5bfd2;
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+.terms-updated {
+  display: inline-block;
+  margin-top: 25px;
+  color: #a99abf;
+  font-size: 0.85rem;
+}
+
+/* TARJETAS */
+
+.terms-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 85px;
+}
+
+.terms-card {
+  padding: 30px 25px;
+  border: 1px solid rgba(191, 139, 255, 0.19);
+  border-radius: 22px;
+  background: linear-gradient(
+    145deg,
+    rgba(113, 75, 159, 0.2),
+    rgba(35, 27, 53, 0.75)
+  );
+  transition:
+    transform 0.3s,
+    border-color 0.3s;
+}
+
+.terms-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(194, 139, 255, 0.55);
+}
+
+.terms-card-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  background: rgba(163, 91, 255, 0.19);
+  font-size: 1.35rem;
+}
+
+.terms-card h3 {
+  font-size: 1.12rem;
+  margin-bottom: 12px;
+}
+
+.terms-card p {
+  color: #bbb2cc;
+  line-height: 1.7;
+  font-size: 0.93rem;
+}
+
+/* CONTENIDO */
+
+.terms-content {
+  border-top: 1px solid rgba(190, 150, 255, 0.16);
+}
+
+.terms-section {
+  display: grid;
+  grid-template-columns: 65px 1fr;
+  gap: 25px;
+  padding: 42px 10px;
+  border-bottom: 1px solid rgba(190, 150, 255, 0.14);
+}
+
+.terms-number {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: rgba(151, 92, 226, 0.19);
+  color: #d2a9ff;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.terms-section h2 {
+  font-size: 1.4rem;
+  margin: 5px 0 18px;
+  color: #f5edff;
+}
+
+.terms-section p,
+.terms-section li {
+  color: #bdb5ca;
+  font-size: 0.98rem;
+  line-height: 1.85;
+}
+
+.terms-section p {
+  margin-bottom: 15px;
+}
+
+.terms-section ul {
+  padding-left: 23px;
+  margin: 15px 0;
+}
+
+.terms-section li {
+  margin-bottom: 8px;
+}
+
+.terms-section a {
+  color: #c995ff;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.terms-section a:hover {
+  text-decoration: underline;
+}
+
+/* CIERRE */
+
+.terms-footer {
+  text-align: center;
+  margin-top: 85px;
+  padding: 65px 25px;
+  border: 1px solid rgba(190, 139, 255, 0.23);
+  border-radius: 28px;
+  background: linear-gradient(
+    135deg,
+    rgba(112, 69, 175, 0.25),
+    rgba(35, 24, 55, 0.55)
+  );
+}
+
+.terms-footer-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 55px;
+  height: 55px;
+  border-radius: 17px;
+  background: linear-gradient(135deg, #b54cff, #7136c9);
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.terms-footer h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.terms-footer p {
+  max-width: 570px;
+  margin: auto;
+  color: #c5bfd2;
+  line-height: 1.8;
+}
+
+.terms-footer a {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  background: linear-gradient(100deg, #a84cf4, #7838c8);
+  box-shadow: 0 8px 25px rgba(151, 72, 235, 0.25);
+  transition: transform 0.3s;
+}
+
+.terms-footer a:hover {
+  transform: translateY(-3px);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .terms-page {
+    padding: 0 5%;
+  }
+
+  .terms-header {
+    padding: 25px 0;
+  }
+
+  .terms-hero {
+    padding: 75px 5px 65px;
+  }
+
+  .terms-hero h1 {
+    font-size: 2.8rem;
+    letter-spacing: -1px;
+  }
+
+  .terms-highlights {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 55px;
+  }
+
+  .terms-card {
+    padding: 25px;
+  }
+
+  .terms-section {
+    grid-template-columns: 45px 1fr;
+    gap: 13px;
+    padding: 32px 0;
+  }
+
+  .terms-number {
+    width: 40px;
+    height: 40px;
+    font-size: 0.8rem;
+  }
+
+  .terms-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .terms-section p,
+  .terms-section li {
+    font-size: 0.92rem;
+  }
+
+  .terms-footer {
+    padding: 45px 20px;
+    margin-top: 60px;
+  }
+
+  .terms-footer h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .terms-brand {
+    font-size: 1.15rem;
+  }
+
+  .terms-back {
+    font-size: 0.8rem;
+  }
+
+  .terms-hero h1 {
+    font-size: 2.3rem;
+  }
+}
+
+/* ==========================================
+   CONTACTO — PDFLAB
+========================================== */
+
+.contact-page {
+  min-height: 100vh;
+  color: #f8f5ff;
+  background:
+    radial-gradient(
+      ellipse at 50% 5%,
+      rgba(111, 47, 203, 0.22),
+      transparent 48%
+    ),
+    #0d0917;
+}
+
+/* ENCABEZADO */
+
+.contact-header {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.contact-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.contact-logo-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  color: white;
+  background: linear-gradient(135deg, #7c3aed, #c026d3);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+}
+
+.contact-back {
+  color: #c9b8e6;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.contact-back:hover {
+  color: #fff;
+}
+
+/* PORTADA */
+
+.contact-hero {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 85px 24px 80px;
+  text-align: center;
+}
+
+.contact-eyebrow {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #c4a2ff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+}
+
+.contact-hero h1 {
+  margin: 0 auto 25px;
+  font-size: clamp(2.8rem, 7vw, 5.2rem);
+  line-height: 1.1;
+  letter-spacing: -2px;
+  font-weight: 900;
+}
+
+.contact-hero h1 span {
+  display: block;
+  color: #b879ff;
+  background: linear-gradient(90deg, #a78bfa, #e879f9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.contact-hero p {
+  max-width: 620px;
+  margin: 0 auto;
+  color: #c7bdd6;
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+/* SECCIONES */
+
+.contact-section {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 55px 24px;
+}
+
+.contact-section-heading {
+  margin-bottom: 38px;
+  text-align: center;
+}
+
+.contact-section-heading h2 {
+  margin: 0 0 15px;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.contact-section-heading p {
+  color: #bdb0cf;
+  line-height: 1.8;
+}
+
+/* TARJETAS SOCIALES */
+
+.contact-social-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.contact-social-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 32px 27px;
+  border: 1px solid rgba(168, 85, 247, 0.23);
+  border-radius: 22px;
+  background: rgba(35, 25, 54, 0.7);
+  color: #fff;
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.contact-social-card:hover {
+  transform: translateY(-7px);
+  border-color: #a855f7;
+  background: rgba(65, 38, 101, 0.75);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.contact-social-icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 25px;
+  border-radius: 17px;
+  background: rgba(168, 85, 247, 0.17);
+  color: #d8b4fe;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+/* Identidad individual de redes */
+
+.contact-x .contact-social-icon {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.contact-instagram .contact-social-icon {
+  background: linear-gradient(
+    135deg,
+    rgba(225, 48, 108, 0.22),
+    rgba(131, 58, 180, 0.25)
+  );
+  color: #f0a0dc;
+}
+
+.contact-facebook .contact-social-icon {
+  background: rgba(59, 130, 246, 0.17);
+  color: #93c5fd;
+}
+
+.contact-social-card h3 {
+  margin: 0 0 13px;
+  font-size: 1.3rem;
+}
+
+.contact-social-card p {
+  flex: 1;
+  margin: 0 0 25px;
+  color: #bdb0cf;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.contact-social-link {
+  color: #c4a2ff;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+/* SOPORTE */
+
+.contact-support {
+  padding: 60px 35px;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 28px;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(124, 58, 237, 0.18),
+      transparent 65%
+    ),
+    #1b142b;
+  text-align: center;
+}
+
+.contact-support-icon {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  margin: 0 auto 25px;
+  border-radius: 19px;
+  background: rgba(168, 85, 247, 0.18);
+  color: #d8b4fe;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.contact-support h2 {
+  margin: 0 0 20px;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+}
+
+.contact-support p {
+  max-width: 700px;
+  margin: 0 auto;
+  color: #c7bdd6;
+  line-height: 1.9;
+}
+
+.contact-support .contact-note {
+  margin-top: 22px;
+  color: #a99bbd;
+  font-size: 0.9rem;
+}
+
+/* CIERRE */
+
+.contact-closing {
+  padding: 80px 24px 100px;
+  text-align: center;
+}
+
+.contact-closing h2 {
+  margin: 0 0 18px;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+}
+
+.contact-closing p {
+  max-width: 550px;
+  margin: 0 auto 28px;
+  color: #bdb0cf;
+  line-height: 1.8;
+}
+
+.contact-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 28px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.contact-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 38px rgba(168, 85, 247, 0.45);
+}
+
+/* FOOTER */
+
+.contact-footer {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid rgba(168, 85, 247, 0.2);
+  color: #a99bbd;
+  font-size: 0.9rem;
+}
+
+/* ACCESIBILIDAD */
+
+.contact-page a:focus-visible {
+  outline: 2px solid #d8b4fe;
+  outline-offset: 4px;
+}
+
+/* TABLETS */
+
+@media (max-width: 900px) {
+  .contact-social-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* CELULARES */
+
+@media (max-width: 600px) {
+  .contact-header {
+    padding: 20px 16px;
+  }
+
+  .contact-logo {
+    font-size: 1.25rem;
+  }
+
+  .contact-back {
+    font-size: 0.85rem;
+  }
+
+  .contact-hero {
+    padding: 65px 20px 60px;
+  }
+
+  .contact-hero h1 {
+    letter-spacing: -1px;
+  }
+
+  .contact-section {
+    padding: 40px 18px;
+  }
+
+  .contact-social-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-social-card {
+    padding: 27px;
+  }
+
+  .contact-support {
+    padding: 45px 22px;
+  }
+
+  .contact-closing {
+    padding: 65px 20px;
+  }
+
+  .contact-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* MOVIMIENTO REDUCIDO */
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-social-card,
+  .contact-button {
+    transition: none;
+  }
+
+  .contact-social-card:hover,
+  .contact-button:hover {
+    transform: none;
   }
 }
