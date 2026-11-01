@@ -537,5 +537,46 @@
 
       <p>Hecho para simplificar tus PDF. © 2026 PDFLab</p>
     </footer>
+    <!-- Ventana flotante de donaciones -->
+    <div id="donationModal" class="donation-modal" hidden>
+      <div
+        class="donation-modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="donationTitle"
+      >
+        <button
+          type="button"
+          id="closeDonationModal"
+          class="donation-close"
+          aria-label="Cerrar ventana"
+        >
+          &times;
+        </button>
+
+        <div class="donation-heart">💜</div>
+
+        <h2 id="donationTitle">¡Tu archivo está listo! 🎉</h2>
+
+        <p>
+          PDFLab es gratuito y queremos que siga siéndolo. Si nuestra
+          herramienta te ayudó, puedes apoyar el proyecto con una donación
+          voluntaria.
+        </p>
+
+        <a
+          href="https://ko-fi.com/pdflabapp"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="donation-support-btn"
+        >
+          💜 Apoyar PDFLab
+        </a>
+
+        <button type="button" id="skipDonation" class="donation-skip">
+          Ahora no, seguir usando PDFLab
+        </button>
+      </div>
+    </div>
   </body>
 </html>

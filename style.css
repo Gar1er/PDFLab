@@ -2045,3 +2045,115 @@ body {
     font-size: 13px;
   }
 }
+
+/* =====================================
+   PDFLab - Ventana de donaciones
+===================================== */
+
+.donation-modal[hidden] {
+  display: none !important;
+}
+
+.donation-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(5, 5, 15, 0.78);
+  backdrop-filter: blur(8px);
+}
+
+.donation-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  padding: 36px 28px;
+  border-radius: 22px;
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  background: linear-gradient(145deg, #1c1630, #10101e);
+  box-shadow: 0 0 45px rgba(139, 92, 246, 0.25);
+  text-align: center;
+  color: #ffffff;
+}
+
+.donation-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  border: none;
+  background: transparent;
+  color: #c4b5d9;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.donation-heart {
+  font-size: 48px;
+  margin-bottom: 14px;
+}
+
+.donation-modal-content h2 {
+  font-size: 25px;
+  margin-bottom: 14px;
+  color: #ffffff;
+}
+
+.donation-modal-content p {
+  color: #c4b5d9;
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
+
+.donation-support-btn {
+  display: block;
+  padding: 14px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #8b5cf6, #c026d3);
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.35);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.donation-support-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 28px rgba(192, 38, 211, 0.6);
+}
+
+.donation-skip {
+  display: block;
+  margin: 20px auto 0;
+  border: none;
+  background: transparent;
+  color: #b9a9d3;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.donation-skip:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.donation-close:focus-visible,
+.donation-support-btn:focus-visible,
+.donation-skip:focus-visible {
+  outline: 2px solid #d8b4fe;
+  outline-offset: 4px;
+}
+
+@media (max-width: 480px) {
+  .donation-modal-content {
+    padding: 32px 20px;
+  }
+
+  .donation-modal-content h2 {
+    font-size: 21px;
+  }
+}

@@ -8,7 +8,8 @@ function progresoProceso(id, porcentaje, titulo, detalle = "") {
   panel.querySelector(".process-progress-label").textContent = titulo;
   panel.querySelector(".process-progress-percent").textContent = `${valor}%`;
   panel.querySelector(".process-progress-fill").style.width = `${valor}%`;
-  panel.querySelector(".process-progress-detail").textContent = detalle || "Procesando en este dispositivo";
+  panel.querySelector(".process-progress-detail").textContent =
+    detalle || "Procesando en este dispositivo";
   panel.classList.toggle("completed", valor === 100);
 }
 function reiniciarProgreso(id) {
@@ -19,7 +20,9 @@ function reiniciarProgreso(id) {
   }
 }
 async function permitirRepintado() {
-  await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  await new Promise((resolve) =>
+    requestAnimationFrame(() => requestAnimationFrame(resolve)),
+  );
 }
 
 const uploadZone = document.getElementById("uploadZone");
@@ -230,7 +233,12 @@ async function unirPDF() {
 
   // Evitamos ejecutar dos uniones simultáneamente.
   mergeButton.disabled = true;
-  progresoProceso("mergeMessage", 0, "Preparando documentos...", `${selectedFiles.length} archivos en cola`);
+  progresoProceso(
+    "mergeMessage",
+    0,
+    "Preparando documentos...",
+    `${selectedFiles.length} archivos en cola`,
+  );
   await permitirRepintado();
   mergeMessage.textContent = "Preparando tus documentos...";
 
@@ -240,7 +248,12 @@ async function unirPDF() {
 
     // Recorremos los archivos seleccionados.
     for (const [indice, file] of selectedFiles.entries()) {
-      progresoProceso("mergeMessage", Math.round((indice / selectedFiles.length) * 90), `Uniendo archivo ${indice + 1} de ${selectedFiles.length}`, file.name);
+      progresoProceso(
+        "mergeMessage",
+        Math.round((indice / selectedFiles.length) * 90),
+        `Uniendo archivo ${indice + 1} de ${selectedFiles.length}`,
+        file.name,
+      );
       await permitirRepintado();
       mergeMessage.textContent = `Procesando: ${file.name}`;
 
@@ -260,11 +273,21 @@ async function unirPDF() {
       paginas.forEach((pagina) => {
         pdfFinal.addPage(pagina);
       });
-      progresoProceso("mergeMessage", Math.round(((indice + 1) / selectedFiles.length) * 90), `Archivo ${indice + 1} completado`, `${pdfFinal.getPageCount()} páginas acumuladas`);
+      progresoProceso(
+        "mergeMessage",
+        Math.round(((indice + 1) / selectedFiles.length) * 90),
+        `Archivo ${indice + 1} completado`,
+        `${pdfFinal.getPageCount()} páginas acumuladas`,
+      );
     }
 
     // Generamos los bytes del nuevo PDF.
-    progresoProceso("mergeMessage", 94, "Guardando documento...", "Generando el PDF unido");
+    progresoProceso(
+      "mergeMessage",
+      94,
+      "Guardando documento...",
+      "Generando el PDF unido",
+    );
     await permitirRepintado();
     const pdfBytes = await pdfFinal.save();
 
@@ -291,9 +314,16 @@ async function unirPDF() {
       URL.revokeObjectURL(url);
     }, 1000);
 
-    progresoProceso("mergeMessage", 100, "¡Unión completada!", `${pdfFinal.getPageCount()} páginas · ${formatFileSize(pdfBytes.length)}`);
+    progresoProceso(
+      "mergeMessage",
+      100,
+      "¡Unión completada!",
+      `${pdfFinal.getPageCount()} páginas · ${formatFileSize(pdfBytes.length)}`,
+    );
     mergeMessage.textContent =
       "¡PDF unido correctamente! Tu descarga está lista.";
+
+    mostrarDonacion();
   } catch (error) {
     reiniciarProgreso("mergeMessage");
     console.error("Error al unir PDF:", error);
@@ -366,7 +396,12 @@ async function dividirPDF() {
   }
 
   splitButton.disabled = true;
-  progresoProceso("splitMessage", 5, "Analizando documento...", "Leyendo páginas seleccionadas");
+  progresoProceso(
+    "splitMessage",
+    5,
+    "Analizando documento...",
+    "Leyendo páginas seleccionadas",
+  );
   await permitirRepintado();
   splitMessage.textContent = "Analizando documento...";
 
@@ -402,7 +437,12 @@ async function dividirPDF() {
     const pdfNuevo = await PDFLib.PDFDocument.create();
 
     // Copiamos las páginas seleccionadas.
-    progresoProceso("splitMessage", 30, "Extrayendo páginas...", `${indices.length} páginas seleccionadas`);
+    progresoProceso(
+      "splitMessage",
+      30,
+      "Extrayendo páginas...",
+      `${indices.length} páginas seleccionadas`,
+    );
     await permitirRepintado();
     const paginasCopiadas = await pdfNuevo.copyPages(pdfOriginal, indices);
 
@@ -412,7 +452,12 @@ async function dividirPDF() {
     });
 
     // Generamos el nuevo PDF.
-    progresoProceso("splitMessage", 85, "Generando PDF...", "Preparando la descarga");
+    progresoProceso(
+      "splitMessage",
+      85,
+      "Generando PDF...",
+      "Preparando la descarga",
+    );
     await permitirRepintado();
     const pdfBytes = await pdfNuevo.save();
 
@@ -438,8 +483,15 @@ async function dividirPDF() {
       URL.revokeObjectURL(url);
     }, 1000);
 
-    progresoProceso("splitMessage", 100, "¡Extracción completada!", `${indices.length} páginas · ${formatFileSize(pdfBytes.length)}`);
+    progresoProceso(
+      "splitMessage",
+      100,
+      "¡Extracción completada!",
+      `${indices.length} páginas · ${formatFileSize(pdfBytes.length)}`,
+    );
     splitMessage.textContent = `¡PDF creado correctamente! Se extrajeron ${indices.length} páginas de ${totalPaginas} páginas.`;
+
+    mostrarDonacion();
   } catch (error) {
     reiniciarProgreso("splitMessage");
     console.error("Error al dividir PDF:", error);
@@ -467,7 +519,12 @@ async function dividirAutomaticamente() {
   }
 
   autoSplitButton.disabled = true;
-  progresoProceso("autoSplitMessage", 0, "Preparando división...", "Leyendo el documento");
+  progresoProceso(
+    "autoSplitMessage",
+    0,
+    "Preparando división...",
+    "Leyendo el documento",
+  );
   await permitirRepintado();
   autoSplitMessage.textContent = "Preparando la división del documento...";
 
@@ -497,7 +554,12 @@ async function dividirAutomaticamente() {
       const final = Math.min(inicio + intervalo, totalPaginas);
 
       const numeroActual = Math.floor(inicio / intervalo) + 1;
-      progresoProceso("autoSplitMessage", Math.round(((numeroActual - 1) / totalPartes) * 85), `Generando parte ${numeroActual} de ${totalPartes}`, `Páginas ${inicio + 1} a ${final}`);
+      progresoProceso(
+        "autoSplitMessage",
+        Math.round(((numeroActual - 1) / totalPartes) * 85),
+        `Generando parte ${numeroActual} de ${totalPartes}`,
+        `Páginas ${inicio + 1} a ${final}`,
+      );
       await permitirRepintado();
       autoSplitMessage.textContent = `Generando parte ${numeroActual} de ${totalPartes}...`;
 
@@ -531,7 +593,12 @@ async function dividirAutomaticamente() {
 
       // Agregamos el PDF al ZIP.
       zip.file(nombreArchivo, pdfBytes);
-      progresoProceso("autoSplitMessage", Math.round((numeroActual / totalPartes) * 85), `Parte ${numeroActual} completada`, `${totalPartes} archivos en total`);
+      progresoProceso(
+        "autoSplitMessage",
+        Math.round((numeroActual / totalPartes) * 85),
+        `Parte ${numeroActual} completada`,
+        `${totalPartes} archivos en total`,
+      );
     }
 
     autoSplitMessage.textContent = "Comprimiendo los documentos...";
@@ -544,7 +611,12 @@ async function dividirAutomaticamente() {
       },
       (progreso) => {
         autoSplitMessage.textContent = `Creando ZIP: ${Math.round(progreso.percent)}%`;
-        progresoProceso("autoSplitMessage", 85 + Math.round(progreso.percent * 0.14), "Empaquetando archivos...", `ZIP: ${Math.round(progreso.percent)}%`);
+        progresoProceso(
+          "autoSplitMessage",
+          85 + Math.round(progreso.percent * 0.14),
+          "Empaquetando archivos...",
+          `ZIP: ${Math.round(progreso.percent)}%`,
+        );
       },
     );
 
@@ -565,8 +637,15 @@ async function dividirAutomaticamente() {
       URL.revokeObjectURL(url);
     }, 1000);
 
-    progresoProceso("autoSplitMessage", 100, "¡División completada!", `${totalPartes} PDF en un ZIP`);
+    progresoProceso(
+      "autoSplitMessage",
+      100,
+      "¡División completada!",
+      `${totalPartes} PDF en un ZIP`,
+    );
     autoSplitMessage.textContent = `¡División completada! Se crearon ${totalPartes} archivos con ${totalPaginas} páginas en total.`;
+
+    mostrarDonacion();
   } catch (error) {
     reiniciarProgreso("autoSplitMessage");
     console.error("Error en división automática:", error);
@@ -613,7 +692,12 @@ async function comprimirPDF() {
 
   compressButton.disabled = true;
   compressionResults.hidden = true;
-  progresoProceso("compressMessage", 0, "Preparando compresión...", "Analizando el PDF");
+  progresoProceso(
+    "compressMessage",
+    0,
+    "Preparando compresión...",
+    "Analizando el PDF",
+  );
   await permitirRepintado();
 
   try {
@@ -636,7 +720,12 @@ async function comprimirPDF() {
 
     // Procesamos cada página.
     for (let numero = 1; numero <= totalPaginas; numero++) {
-      progresoProceso("compressMessage", Math.round(((numero - 1) / totalPaginas) * 90), `Comprimiendo página ${numero} de ${totalPaginas}`, `Nivel: ${compressionLevel.options[compressionLevel.selectedIndex].text}`);
+      progresoProceso(
+        "compressMessage",
+        Math.round(((numero - 1) / totalPaginas) * 90),
+        `Comprimiendo página ${numero} de ${totalPaginas}`,
+        `Nivel: ${compressionLevel.options[compressionLevel.selectedIndex].text}`,
+      );
       await permitirRepintado();
       compressMessage.textContent = `Comprimiendo página ${numero} de ${totalPaginas}...`;
 
@@ -705,12 +794,22 @@ async function comprimirPDF() {
       canvas.height = 0;
 
       pagina.cleanup();
-      progresoProceso("compressMessage", Math.round((numero / totalPaginas) * 90), `Página ${numero} completada`, `${numero} de ${totalPaginas} páginas`);
+      progresoProceso(
+        "compressMessage",
+        Math.round((numero / totalPaginas) * 90),
+        `Página ${numero} completada`,
+        `${numero} de ${totalPaginas} páginas`,
+      );
     }
 
     // Generamos el documento comprimido.
     compressMessage.textContent = "Generando documento final...";
-    progresoProceso("compressMessage", 94, "Guardando PDF optimizado...", "Calculando el tamaño final");
+    progresoProceso(
+      "compressMessage",
+      94,
+      "Guardando PDF optimizado...",
+      "Calculando el tamaño final",
+    );
     await permitirRepintado();
 
     const resultado = await pdfComprimido.save();
@@ -785,12 +884,19 @@ async function comprimirPDF() {
 
       compressMessage.textContent =
         "¡Excelente! Se redujo el tamaño y se descargó el PDF optimizado.";
+
+      mostrarDonacion();
     } else {
       compressMessage.textContent =
         "No se consiguió reducir el tamaño. Se evitó descargar una versión más pesada. Tu documento original permanece intacto.";
     }
 
-    progresoProceso("compressMessage", 100, "¡Proceso completado!", `${formatFileSize(tamañoOriginal)} → ${formatFileSize(tamañoFinal)}`);
+    progresoProceso(
+      "compressMessage",
+      100,
+      "¡Proceso completado!",
+      `${formatFileSize(tamañoOriginal)} → ${formatFileSize(tamañoFinal)}`,
+    );
     await documento.destroy();
   } catch (error) {
     reiniciarProgreso("compressMessage");
@@ -1766,6 +1872,8 @@ async function convertirImagenesAPDF() {
     imageProgressText.textContent = "¡Documento terminado!";
     imageProgressPercent.textContent = "100%";
     imageProgressBar.style.width = "100%";
+
+    mostrarDonacion();
   } catch (error) {
     console.error("Error al convertir imágenes:", error);
 
@@ -1783,3 +1891,37 @@ async function convertirImagenesAPDF() {
 /* ===== BOTÓN DE CONVERSIÓN ===== */
 
 convertImagesButton.addEventListener("click", convertirImagenesAPDF);
+
+/* =====================================
+   PDFLab - Sistema de donaciones
+===================================== */
+
+const DONATIONS_ENABLED = true;
+const DONATION_SESSION_KEY = "pdflab_donation_shown";
+
+function mostrarDonacion() {
+  if (!DONATIONS_ENABLED) return;
+
+  if (sessionStorage.getItem(DONATION_SESSION_KEY)) return;
+
+  const modal = document.getElementById("donationModal");
+  if (!modal) return;
+
+  modal.hidden = false;
+  sessionStorage.setItem(DONATION_SESSION_KEY, "true");
+}
+
+function cerrarDonacion() {
+  const modal = document.getElementById("donationModal");
+  if (!modal) return;
+
+  modal.hidden = true;
+}
+
+document
+  .getElementById("closeDonationModal")
+  ?.addEventListener("click", cerrarDonacion);
+
+document
+  .getElementById("skipDonation")
+  ?.addEventListener("click", cerrarDonacion);
