@@ -3778,3 +3778,160 @@ body {
     transform: none;
   }
 }
+
+/* ==========================================
+   PDFLAB — FOOTER INFORMATIVO
+========================================== */
+
+.site-footer {
+  display: block;
+  margin-top: 80px;
+  padding: 55px 24px 22px;
+  border-top: 1px solid rgba(168, 85, 247, 0.2);
+  background: linear-gradient(180deg, #120d1e 0%, #090711 100%);
+}
+
+.site-footer-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 38px;
+}
+
+/* MARCA */
+
+.site-footer .logo {
+  display: inline-flex;
+  margin-bottom: 17px;
+}
+
+.site-footer-brand p {
+  max-width: 280px;
+  color: #a99bbd;
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.site-footer-donate {
+  display: inline-flex;
+  margin-top: 20px;
+  padding: 10px 15px;
+  border: 1px solid #a855f766;
+  border-radius: 10px;
+  background: #8b5cf622;
+  color: #d8b4ff;
+  font-size: 11px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.site-footer-donate:hover {
+  background: #8b5cf644;
+  border-color: #c084fc;
+  transform: translateY(-2px);
+}
+
+/* COLUMNAS */
+
+.site-footer-column {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.site-footer-column h2 {
+  margin-bottom: 5px;
+  color: #e9ddff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.site-footer-column a {
+  width: fit-content;
+  color: #a99bbd;
+  font-size: 12px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-footer-column a:hover {
+  color: #d8b4ff;
+}
+
+/* COPYRIGHT */
+
+.site-footer-bottom {
+  max-width: 1180px;
+  margin: 45px auto 0;
+  padding-top: 22px;
+  border-top: 1px solid rgba(168, 85, 247, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.site-footer-bottom p {
+  color: #81758f;
+  font-size: 10px;
+}
+
+/* ACCESIBILIDAD */
+
+.site-footer a:focus-visible {
+  outline: 2px solid #d8b4fe;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* TABLETS */
+
+@media (max-width: 850px) {
+  .site-footer-inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 35px;
+  }
+
+  .site-footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+/* CELULARES */
+
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 42px 22px 20px;
+  }
+
+  .site-footer-inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 20px;
+  }
+
+  .site-footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .site-footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    margin-top: 35px;
+  }
+}
+
+/* MOVIMIENTO REDUCIDO */
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer a {
+    transition: none;
+  }
+
+  .site-footer a:hover {
+    transform: none;
+  }
+}
