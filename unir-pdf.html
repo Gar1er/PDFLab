@@ -3,36 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Une varios archivos PDF en un solo documento gratis. Ordena tus archivos antes de combinarlos y descarga el PDF final desde tu navegador, sin registro."
-    />
+    <meta name="description" content="Une varios archivos PDF en un solo documento gratis. Ordena tus archivos antes de combinarlos y descarga el PDF final desde tu navegador, sin registro." />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://pdflab-coe.pages.dev/unir-pdf.html" />
-
+    
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_MX" />
     <meta property="og:site_name" content="PDFLab" />
-    <meta
-      property="og:title"
-      content="Unir PDF gratis online | Combinar archivos PDF - PDFLab"
-    />
-    <meta
-      property="og:description"
-      content="Une varios archivos PDF en un solo documento gratis. Ordena tus archivos antes de combinarlos y descarga el PDF final desde tu navegador, sin registro."
-    />
-    <meta
-      property="og:url"
-      content="https://pdflab-coe.pages.dev/unir-pdf.html"
-    />
+    <meta property="og:title" content="Unir PDF gratis online | Combinar archivos PDF - PDFLab" />
+    <meta property="og:description" content="Une varios archivos PDF en un solo documento gratis. Ordena tus archivos antes de combinarlos y descarga el PDF final desde tu navegador, sin registro." />
+    <meta property="og:url" content="https://pdflab-coe.pages.dev/unir-pdf.html" />
     <meta name="twitter:card" content="summary" />
     <title>Unir PDF gratis online | Combinar archivos PDF - PDFLab</title>
     <link rel="stylesheet" href="style.css" />
     <!-- Bibliotecas necesarias para esta herramienta -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"
-      defer
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js" defer></script>
     <script src="script.js" defer></script>
   </head>
 
@@ -45,93 +30,50 @@
       <nav aria-label="Navegación principal">
         <a href="index.html#herramientas">Todas las herramientas</a>
         <a href="index.html#como-funciona">Cómo funciona</a>
-        <a
-          href="https://ko-fi.com/pdflabapp"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="donate-btn"
-          >💜 Apoyar PDFLab</a
-        >
+        <a href="https://ko-fi.com/pdflabapp" target="_blank" rel="noopener noreferrer" class="donate-btn">💜 Apoyar PDFLab</a>
       </nav>
-      <a href="index.html#herramientas" class="nav-button"
-        >Ver herramientas ↗</a
-      >
+      <a href="index.html#herramientas" class="nav-button">Ver herramientas ↗</a>
     </header>
     <main>
       <section class="tool-page-intro">
         <nav class="breadcrumb" aria-label="Ruta de navegación">
-          <a href="index.html">PDFLab</a><span aria-hidden="true">/</span
-          ><span>Unir PDF gratis online</span>
+          <a href="index.html">PDFLab</a><span aria-hidden="true">/</span><span>Unir PDF gratis online</span>
         </nav>
         <p class="eyebrow">HERRAMIENTA PDF GRATUITA</p>
         <h1>Unir PDF gratis online</h1>
-        <p class="tool-page-lead">
-          Combina varios documentos PDF en uno solo. Añade tus archivos,
-          ordénalos y crea un único PDF directamente en tu navegador.
-        </p>
+        <p class="tool-page-lead">Combina varios documentos PDF en uno solo. Añade tus archivos, ordénalos y crea un único PDF directamente en tu navegador.</p>
       </section>
 
-      <section
-        class="workspace-screen tool-workspace"
-        aria-labelledby="workspaceHeading"
-      >
+      <section class="workspace-screen tool-workspace" aria-labelledby="workspaceHeading">
         <div class="workspace-header">
           <h2 id="workspaceHeading">Combina tus archivos PDF</h2>
-          <p>
-            Selecciona dos o más documentos. Puedes cambiar su orden antes de
-            unirlos.
-          </p>
+          <p>Selecciona dos o más documentos. Puedes cambiar su orden antes de unirlos.</p>
         </div>
         <div id="toolWorkspace">
           <div class="upload-zone" id="uploadZone">
             <div class="upload-icon">↑</div>
             <h2>Arrastra tus archivos PDF aquí</h2>
             <p>O selecciona documentos desde tu dispositivo</p>
-            <label for="fileInput" class="primary-button"
-              >Seleccionar archivos PDF</label
-            >
-            <input
-              type="file"
-              id="fileInput"
-              accept=".pdf,application/pdf"
-              multiple
-              hidden
-            />
-            <p class="upload-note">
-              PDF · Los documentos se procesan en este navegador
-            </p>
+            <label for="fileInput" class="primary-button">Seleccionar archivos PDF</label>
+            <input type="file" id="fileInput" accept=".pdf,application/pdf" multiple hidden />
+            <p class="upload-note">PDF · Los documentos se procesan en este navegador</p>
           </div>
           <div id="fileList" class="file-list" aria-live="polite"></div>
           <div class="merge-controls" id="mergeControls" hidden>
             <p id="fileCounter">0 archivos seleccionados</p>
-            <button id="mergeButton" class="primary-button" type="button">
-              Unir archivos PDF
-            </button>
+            <button id="mergeButton" class="primary-button" type="button">Unir archivos PDF</button>
             <p id="mergeMessage" role="status" aria-live="polite"></p>
-            <div
-              class="process-progress"
-              id="mergeMessageProgress"
-              role="progressbar"
-              aria-label="Progreso del proceso"
-              aria-valuemin="0"
-              aria-valuemax="100"
-              aria-valuenow="0"
-              hidden
-            >
+            <div class="process-progress" id="mergeMessageProgress" role="progressbar" aria-label="Progreso del proceso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden>
               <div class="process-progress-top">
                 <span class="process-progress-label">Preparando...</span>
                 <strong class="process-progress-percent">0%</strong>
               </div>
-              <div class="process-progress-track">
-                <div class="process-progress-fill"></div>
-              </div>
+              <div class="process-progress-track"><div class="process-progress-fill"></div></div>
               <p class="process-progress-detail">Trabajando en tu navegador</p>
             </div>
           </div>
         </div>
-        <p class="privacy-note">
-          <span>✦</span> Tus archivos se procesan localmente en tu navegador.
-        </p>
+        <p class="privacy-note"><span>✦</span> Tus archivos se procesan localmente en tu navegador.</p>
       </section>
 
       <section class="tool-seo-content">
@@ -139,53 +81,20 @@
           <p class="eyebrow">CÓMO FUNCIONA</p>
           <h2>Cómo unir varios PDF en un solo archivo</h2>
           <ol class="tool-steps">
-            <li>
-              <strong>Selecciona tus documentos.</strong> Añade dos o más
-              archivos PDF desde tu dispositivo.
-            </li>
-            <li>
-              <strong>Organiza el orden.</strong> Usa las flechas junto a cada
-              archivo para moverlo hacia arriba o hacia abajo.
-            </li>
-            <li>
-              <strong>Combina y descarga.</strong> Pulsa “Unir archivos PDF” y
-              PDFLab generará un único documento.
-            </li>
+            <li><strong>Selecciona tus documentos.</strong> Añade dos o más archivos PDF desde tu dispositivo.</li>
+            <li><strong>Organiza el orden.</strong> Usa las flechas junto a cada archivo para moverlo hacia arriba o hacia abajo.</li>
+            <li><strong>Combina y descarga.</strong> Pulsa “Unir archivos PDF” y PDFLab generará un único documento.</li>
           </ol>
         </div>
         <div class="tool-content-block">
           <h2>Unir PDF gratis y desde tu navegador</h2>
-          <p>
-            PDFLab combina las páginas de los documentos en el orden que elijas.
-            No necesitas crear una cuenta ni instalar un programa. El
-            procesamiento se realiza en tu navegador y el archivo original
-            permanece en tu dispositivo.
-          </p>
+          <p>PDFLab combina las páginas de los documentos en el orden que elijas. No necesitas crear una cuenta ni instalar un programa. El procesamiento se realiza en tu navegador y el archivo original permanece en tu dispositivo.</p>
         </div>
         <div class="tool-faq">
           <h2>Preguntas frecuentes sobre unir PDF</h2>
-          <details>
-            <summary>¿Puedo cambiar el orden de los documentos?</summary>
-            <p>
-              Sí. Después de seleccionarlos, utiliza las flechas de cada archivo
-              para ajustar el orden antes de unirlos.
-            </p>
-          </details>
-          <details>
-            <summary>¿Puedo unir más de dos archivos PDF?</summary>
-            <p>
-              Sí. Puedes añadir varios documentos. El número y el tamaño que
-              puedas procesar dependerán de la memoria y capacidad de tu
-              dispositivo y navegador.
-            </p>
-          </details>
-          <details>
-            <summary>¿Mis archivos se suben a un servidor?</summary>
-            <p>
-              La unión se realiza localmente en tu navegador. PDFLab no necesita
-              que cargues tus documentos a un servidor para combinarlos.
-            </p>
-          </details>
+          <details><summary>¿Puedo cambiar el orden de los documentos?</summary><p>Sí. Después de seleccionarlos, utiliza las flechas de cada archivo para ajustar el orden antes de unirlos.</p></details>
+          <details><summary>¿Puedo unir más de dos archivos PDF?</summary><p>Sí. Puedes añadir varios documentos. El número y el tamaño que puedas procesar dependerán de la memoria y capacidad de tu dispositivo y navegador.</p></details>
+          <details><summary>¿Mis archivos se suben a un servidor?</summary><p>La unión se realiza localmente en tu navegador. PDFLab no necesita que cargues tus documentos a un servidor para combinarlos.</p></details>
         </div>
       </section>
       <section class="tool-related">
@@ -194,50 +103,24 @@
           <a href="unir-pdf.html">Unir PDF <span>↗</span></a>
           <a href="dividir-pdf.html">Dividir PDF <span>↗</span></a>
           <a href="comprimir-pdf.html">Comprimir PDF <span>↗</span></a>
-          <a href="imagenes-a-pdf.html"
-            >Convertir imágenes a PDF <span>↗</span></a
-          >
+          <a href="imagenes-a-pdf.html">Convertir imágenes a PDF <span>↗</span></a>
         </div>
       </section>
     </main>
     <div id="pdflab-footer"></div>
     <!-- Ventana voluntaria de apoyo: aparece después de completar una herramienta -->
     <div id="donationModal" class="donation-modal" hidden>
-      <div
-        class="donation-modal-content"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="donationTitle"
-      >
-        <button
-          type="button"
-          id="closeDonationModal"
-          class="donation-close"
-          aria-label="Cerrar ventana"
-        >
-          &times;
-        </button>
+      <div class="donation-modal-content" role="dialog" aria-modal="true" aria-labelledby="donationTitle">
+        <button type="button" id="closeDonationModal" class="donation-close" aria-label="Cerrar ventana">&times;</button>
         <div class="donation-heart">💜</div>
         <h2 id="donationTitle">¡Tu archivo está listo! 🎉</h2>
-        <p>
-          PDFLab es gratuito y queremos que siga siéndolo. Si nuestra
-          herramienta te ayudó, puedes apoyar el proyecto con una donación
-          voluntaria.
-        </p>
-        <a
-          href="https://ko-fi.com/pdflabapp"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="donation-support-btn"
-          >💜 Apoyar PDFLab</a
-        >
-        <button type="button" id="skipDonation" class="donation-skip">
-          Ahora no, seguir usando PDFLab
-        </button>
+        <p>PDFLab es gratuito y queremos que siga siéndolo. Si nuestra herramienta te ayudó, puedes apoyar el proyecto con una donación voluntaria.</p>
+        <a href="https://ko-fi.com/pdflabapp" target="_blank" rel="noopener noreferrer" class="donation-support-btn">💜 Apoyar PDFLab</a>
+        <button type="button" id="skipDonation" class="donation-skip">Ahora no, seguir usando PDFLab</button>
       </div>
     </div>
     <script src="footer.js" defer></script>
-    <!-- Cloudflare Web Analytics -->
+      <!-- Cloudflare Web Analytics -->
     <script
       type="module"
       src="https://static.cloudflareinsights.com/beacon.min.js"

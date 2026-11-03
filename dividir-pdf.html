@@ -3,47 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Divide un PDF gratis: extrae páginas específicas o separa el documento en partes automáticas. Descarga tus archivos sin registro y desde tu navegador."
-    />
+    <meta name="description" content="Divide un PDF gratis: extrae páginas específicas o separa el documento en partes automáticas. Descarga tus archivos sin registro y desde tu navegador." />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <link
-      rel="canonical"
-      href="https://pdflab-coe.pages.dev/dividir-pdf.html"
-    />
-
+    <link rel="canonical" href="https://pdflab-coe.pages.dev/dividir-pdf.html" />
+    
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_MX" />
     <meta property="og:site_name" content="PDFLab" />
-    <meta
-      property="og:title"
-      content="Dividir PDF gratis online | Extraer páginas de PDF - PDFLab"
-    />
-    <meta
-      property="og:description"
-      content="Divide un PDF gratis: extrae páginas específicas o separa el documento en partes automáticas. Descarga tus archivos sin registro y desde tu navegador."
-    />
-    <meta
-      property="og:url"
-      content="https://pdflab-coe.pages.dev/dividir-pdf.html"
-    />
+    <meta property="og:title" content="Dividir PDF gratis online | Extraer páginas de PDF - PDFLab" />
+    <meta property="og:description" content="Divide un PDF gratis: extrae páginas específicas o separa el documento en partes automáticas. Descarga tus archivos sin registro y desde tu navegador." />
+    <meta property="og:url" content="https://pdflab-coe.pages.dev/dividir-pdf.html" />
     <meta name="twitter:card" content="summary" />
     <title>Dividir PDF gratis online | Extraer páginas de PDF - PDFLab</title>
     <link rel="stylesheet" href="style.css" />
     <!-- Bibliotecas necesarias para esta herramienta -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"
-      defer
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
-      defer
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
-      defer
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
     <script src="script.js" defer></script>
   </head>
 
@@ -56,105 +32,56 @@
       <nav aria-label="Navegación principal">
         <a href="index.html#herramientas">Todas las herramientas</a>
         <a href="index.html#como-funciona">Cómo funciona</a>
-        <a
-          href="https://ko-fi.com/pdflabapp"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="donate-btn"
-          >💜 Apoyar PDFLab</a
-        >
+        <a href="https://ko-fi.com/pdflabapp" target="_blank" rel="noopener noreferrer" class="donate-btn">💜 Apoyar PDFLab</a>
       </nav>
-      <a href="index.html#herramientas" class="nav-button"
-        >Ver herramientas ↗</a
-      >
+      <a href="index.html#herramientas" class="nav-button">Ver herramientas ↗</a>
     </header>
     <main>
       <section class="tool-page-intro">
         <nav class="breadcrumb" aria-label="Ruta de navegación">
-          <a href="index.html">PDFLab</a><span aria-hidden="true">/</span
-          ><span>Dividir PDF gratis online</span>
+          <a href="index.html">PDFLab</a><span aria-hidden="true">/</span><span>Dividir PDF gratis online</span>
         </nav>
         <p class="eyebrow">HERRAMIENTA PDF GRATUITA</p>
         <h1>Dividir PDF gratis online</h1>
-        <p class="tool-page-lead">
-          Separa las páginas que necesitas o divide un documento largo en varios
-          archivos PDF. Elige el método y descarga el resultado desde tu
-          navegador.
-        </p>
+        <p class="tool-page-lead">Separa las páginas que necesitas o divide un documento largo en varios archivos PDF. Elige el método y descarga el resultado desde tu navegador.</p>
       </section>
 
-      <section
-        class="workspace-screen tool-workspace"
-        aria-labelledby="workspaceHeading"
-      >
+      <section class="workspace-screen tool-workspace" aria-labelledby="workspaceHeading">
         <div class="workspace-header">
           <h2 id="workspaceHeading">Selecciona el PDF que quieres dividir</h2>
-          <p>
-            Puedes extraer páginas concretas o crear partes consecutivas con la
-            división automática.
-          </p>
+          <p>Puedes extraer páginas concretas o crear partes consecutivas con la división automática.</p>
         </div>
         <div id="toolWorkspace">
           <div class="upload-zone" id="uploadZone">
             <div class="upload-icon">↑</div>
             <h2>Arrastra tus archivos PDF aquí</h2>
             <p>O selecciona documentos desde tu dispositivo</p>
-            <label for="fileInput" class="primary-button"
-              >Seleccionar archivos PDF</label
-            >
-            <input
-              type="file"
-              id="fileInput"
-              accept=".pdf,application/pdf"
-              multiple
-              hidden
-            />
-            <p class="upload-note">
-              PDF · Los documentos se procesan en este navegador
-            </p>
+            <label for="fileInput" class="primary-button">Seleccionar archivos PDF</label>
+            <input type="file" id="fileInput" accept=".pdf,application/pdf" multiple hidden />
+            <p class="upload-note">PDF · Los documentos se procesan en este navegador</p>
           </div>
           <div id="fileList" class="file-list" aria-live="polite"></div>
           <div class="split-controls" id="splitControls" hidden>
             <h3>Selecciona las páginas que quieres extraer</h3>
-            <p>
-              Marca las miniaturas de las páginas que deseas incluir en el nuevo
-              PDF.
-            </p>
+            <p>Marca las miniaturas de las páginas que deseas incluir en el nuevo PDF.</p>
             <div class="page-selection-header">
               <h3>Documento original</h3>
               <span id="pageTotal">0 páginas</span>
             </div>
-            <div id="pageGrid" class="page-grid">
-              <!-- Las páginas aparecerán aquí -->
-            </div>
+            <div id="pageGrid" class="page-grid"><!-- Las páginas aparecerán aquí --></div>
             <div class="page-selection-summary">
               <span>↓</span>
               <strong id="selectedPageCounter">0 páginas seleccionadas</strong>
             </div>
-            <button id="selectAllPages" class="secondary-button" type="button">
-              Seleccionar todas
-            </button>
-            <button id="splitButton" class="primary-button" type="button">
-              Extraer páginas seleccionadas
-            </button>
+            <button id="selectAllPages" class="secondary-button" type="button">Seleccionar todas</button>
+            <button id="splitButton" class="primary-button" type="button">Extraer páginas seleccionadas</button>
             <p id="splitMessage" role="status" aria-live="polite"></p>
-            <div
-              class="process-progress"
-              id="splitMessageProgress"
-              role="progressbar"
-              aria-label="Progreso del proceso"
-              aria-valuemin="0"
-              aria-valuemax="100"
-              aria-valuenow="0"
-              hidden
-            >
+            <div class="process-progress" id="splitMessageProgress" role="progressbar" aria-label="Progreso del proceso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden>
               <div class="process-progress-top">
                 <span class="process-progress-label">Preparando...</span>
                 <strong class="process-progress-percent">0%</strong>
               </div>
-              <div class="process-progress-track">
-                <div class="process-progress-fill"></div>
-              </div>
+              <div class="process-progress-track"><div class="process-progress-fill"></div></div>
               <p class="process-progress-detail">Trabajando en tu navegador</p>
             </div>
           </div>
@@ -164,60 +91,31 @@
               <span class="auto-split-icon">✂</span>
               <div>
                 <h3>División automática</h3>
-                <p>
-                  Divide el documento en varios archivos PDF del mismo número de
-                  páginas.
-                </p>
+                <p>Divide el documento en varios archivos PDF del mismo número de páginas.</p>
               </div>
             </div>
-            <label for="splitInterval"
-              >¿Cada cuántas páginas quieres dividirlo?</label
-            >
+            <label for="splitInterval">¿Cada cuántas páginas quieres dividirlo?</label>
             <div class="interval-input">
-              <input
-                type="number"
-                id="splitInterval"
-                min="1"
-                max="1000"
-                value="10"
-              />
+              <input type="number" id="splitInterval" min="1" max="1000" value="10" />
               <span>páginas por archivo</span>
             </div>
             <div class="auto-split-info">
               <span>✦</span>
-              <p>
-                Los documentos se generarán respetando el orden original de las
-                páginas y se descargarán en un ZIP.
-              </p>
+              <p>Los documentos se generarán respetando el orden original de las páginas y se descargarán en un ZIP.</p>
             </div>
-            <button id="autoSplitButton" class="primary-button" type="button">
-              Dividir automáticamente
-            </button>
+            <button id="autoSplitButton" class="primary-button" type="button">Dividir automáticamente</button>
             <p id="autoSplitMessage" role="status" aria-live="polite"></p>
-            <div
-              class="process-progress"
-              id="autoSplitMessageProgress"
-              role="progressbar"
-              aria-label="Progreso del proceso"
-              aria-valuemin="0"
-              aria-valuemax="100"
-              aria-valuenow="0"
-              hidden
-            >
+            <div class="process-progress" id="autoSplitMessageProgress" role="progressbar" aria-label="Progreso del proceso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden>
               <div class="process-progress-top">
                 <span class="process-progress-label">Preparando...</span>
                 <strong class="process-progress-percent">0%</strong>
               </div>
-              <div class="process-progress-track">
-                <div class="process-progress-fill"></div>
-              </div>
+              <div class="process-progress-track"><div class="process-progress-fill"></div></div>
               <p class="process-progress-detail">Trabajando en tu navegador</p>
             </div>
           </div>
         </div>
-        <p class="privacy-note">
-          <span>✦</span> Tus archivos se procesan localmente en tu navegador.
-        </p>
+        <p class="privacy-note"><span>✦</span> Tus archivos se procesan localmente en tu navegador.</p>
       </section>
 
       <section class="tool-seo-content">
@@ -225,56 +123,21 @@
           <p class="eyebrow">CÓMO FUNCIONA</p>
           <h2>Dos formas de dividir un PDF</h2>
           <ol class="tool-steps">
-            <li>
-              <strong>Selecciona un documento.</strong> Añade el PDF que
-              contiene las páginas que necesitas separar.
-            </li>
-            <li>
-              <strong>Elige el método.</strong> Marca páginas individuales en la
-              vista previa o indica cada cuántas páginas crear una parte.
-            </li>
-            <li>
-              <strong>Descarga el resultado.</strong> La extracción crea un PDF;
-              la división automática reúne las partes en un archivo ZIP.
-            </li>
+            <li><strong>Selecciona un documento.</strong> Añade el PDF que contiene las páginas que necesitas separar.</li>
+            <li><strong>Elige el método.</strong> Marca páginas individuales en la vista previa o indica cada cuántas páginas crear una parte.</li>
+            <li><strong>Descarga el resultado.</strong> La extracción crea un PDF; la división automática reúne las partes en un archivo ZIP.</li>
           </ol>
         </div>
         <div class="tool-content-block">
           <h2>Extraer páginas o dividir por bloques</h2>
-          <p>
-            Utiliza la selección visual para conservar únicamente las páginas
-            que necesitas. Si quieres separar un documento largo en partes
-            consecutivas, usa la división automática e indica el número de
-            páginas por archivo.
-          </p>
-          <p>
-            El documento original no se modifica. El procesamiento se realiza en
-            tu navegador, sin registro.
-          </p>
+          <p>Utiliza la selección visual para conservar únicamente las páginas que necesitas. Si quieres separar un documento largo en partes consecutivas, usa la división automática e indica el número de páginas por archivo.</p>
+          <p>El documento original no se modifica. El procesamiento se realiza en tu navegador, sin registro.</p>
         </div>
         <div class="tool-faq">
           <h2>Preguntas frecuentes sobre dividir PDF</h2>
-          <details>
-            <summary>¿Puedo extraer páginas específicas?</summary>
-            <p>
-              Sí. PDFLab muestra miniaturas para que selecciones las páginas que
-              quieres incluir en el nuevo documento.
-            </p>
-          </details>
-          <details>
-            <summary>¿Cómo funciona la división automática?</summary>
-            <p>
-              Indica cuántas páginas debe contener cada parte. Los PDF generados
-              se descargan juntos en un archivo ZIP.
-            </p>
-          </details>
-          <details>
-            <summary>¿Se modifica el PDF original?</summary>
-            <p>
-              No. PDFLab crea archivos nuevos y conserva intacto el documento
-              que seleccionaste.
-            </p>
-          </details>
+          <details><summary>¿Puedo extraer páginas específicas?</summary><p>Sí. PDFLab muestra miniaturas para que selecciones las páginas que quieres incluir en el nuevo documento.</p></details>
+          <details><summary>¿Cómo funciona la división automática?</summary><p>Indica cuántas páginas debe contener cada parte. Los PDF generados se descargan juntos en un archivo ZIP.</p></details>
+          <details><summary>¿Se modifica el PDF original?</summary><p>No. PDFLab crea archivos nuevos y conserva intacto el documento que seleccionaste.</p></details>
         </div>
       </section>
       <section class="tool-related">
@@ -283,50 +146,24 @@
           <a href="unir-pdf.html">Unir PDF <span>↗</span></a>
           <a href="dividir-pdf.html">Dividir PDF <span>↗</span></a>
           <a href="comprimir-pdf.html">Comprimir PDF <span>↗</span></a>
-          <a href="imagenes-a-pdf.html"
-            >Convertir imágenes a PDF <span>↗</span></a
-          >
+          <a href="imagenes-a-pdf.html">Convertir imágenes a PDF <span>↗</span></a>
         </div>
       </section>
     </main>
     <div id="pdflab-footer"></div>
     <!-- Ventana voluntaria de apoyo: aparece después de completar una herramienta -->
     <div id="donationModal" class="donation-modal" hidden>
-      <div
-        class="donation-modal-content"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="donationTitle"
-      >
-        <button
-          type="button"
-          id="closeDonationModal"
-          class="donation-close"
-          aria-label="Cerrar ventana"
-        >
-          &times;
-        </button>
+      <div class="donation-modal-content" role="dialog" aria-modal="true" aria-labelledby="donationTitle">
+        <button type="button" id="closeDonationModal" class="donation-close" aria-label="Cerrar ventana">&times;</button>
         <div class="donation-heart">💜</div>
         <h2 id="donationTitle">¡Tu archivo está listo! 🎉</h2>
-        <p>
-          PDFLab es gratuito y queremos que siga siéndolo. Si nuestra
-          herramienta te ayudó, puedes apoyar el proyecto con una donación
-          voluntaria.
-        </p>
-        <a
-          href="https://ko-fi.com/pdflabapp"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="donation-support-btn"
-          >💜 Apoyar PDFLab</a
-        >
-        <button type="button" id="skipDonation" class="donation-skip">
-          Ahora no, seguir usando PDFLab
-        </button>
+        <p>PDFLab es gratuito y queremos que siga siéndolo. Si nuestra herramienta te ayudó, puedes apoyar el proyecto con una donación voluntaria.</p>
+        <a href="https://ko-fi.com/pdflabapp" target="_blank" rel="noopener noreferrer" class="donation-support-btn">💜 Apoyar PDFLab</a>
+        <button type="button" id="skipDonation" class="donation-skip">Ahora no, seguir usando PDFLab</button>
       </div>
     </div>
     <script src="footer.js" defer></script>
-    <!-- Cloudflare Web Analytics -->
+      <!-- Cloudflare Web Analytics -->
     <script
       type="module"
       src="https://static.cloudflareinsights.com/beacon.min.js"
