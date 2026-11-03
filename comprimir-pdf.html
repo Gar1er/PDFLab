@@ -3,22 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Reduce el tamaño de un PDF gratis con tres niveles de compresión. Compara el resultado antes de descargarlo; el archivo original no se modifica." />
+    <meta
+      name="description"
+      content="Reduce el tamaño de un PDF gratis con tres niveles de compresión. Compara el resultado antes de descargarlo; el archivo original no se modifica."
+    />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <link rel="canonical" href="https://pdflab-coe.pages.dev/comprimir-pdf.html" />
-    
+    <link
+      rel="canonical"
+      href="https://pdflab-coe.pages.dev/comprimir-pdf.html"
+    />
+
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_MX" />
     <meta property="og:site_name" content="PDFLab" />
-    <meta property="og:title" content="Comprimir PDF gratis online | Reducir tamaño de PDF - PDFLab" />
-    <meta property="og:description" content="Reduce el tamaño de un PDF gratis con tres niveles de compresión. Compara el resultado antes de descargarlo; el archivo original no se modifica." />
-    <meta property="og:url" content="https://pdflab-coe.pages.dev/comprimir-pdf.html" />
+    <meta
+      property="og:title"
+      content="Comprimir PDF gratis online | Reducir tamaño de PDF - PDFLab"
+    />
+    <meta
+      property="og:description"
+      content="Reduce el tamaño de un PDF gratis con tres niveles de compresión. Compara el resultado antes de descargarlo; el archivo original no se modifica."
+    />
+    <meta
+      property="og:url"
+      content="https://pdflab-coe.pages.dev/comprimir-pdf.html"
+    />
     <meta name="twitter:card" content="summary" />
     <title>Comprimir PDF gratis online | Reducir tamaño de PDF - PDFLab</title>
     <link rel="stylesheet" href="style.css" />
     <!-- Bibliotecas necesarias para esta herramienta -->
-    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
+      defer
+    ></script>
     <script src="script.js" defer></script>
   </head>
 
@@ -31,33 +52,62 @@
       <nav aria-label="Navegación principal">
         <a href="index.html#herramientas">Todas las herramientas</a>
         <a href="index.html#como-funciona">Cómo funciona</a>
-        <a href="https://ko-fi.com/pdflabapp" target="_blank" rel="noopener noreferrer" class="donate-btn">💜 Apoyar PDFLab</a>
+        <a
+          href="https://ko-fi.com/pdflabapp"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="donate-btn"
+          >💜 Apoyar PDFLab</a
+        >
       </nav>
-      <a href="index.html#herramientas" class="nav-button">Ver herramientas ↗</a>
+      <a href="index.html#herramientas" class="nav-button"
+        >Ver herramientas ↗</a
+      >
     </header>
     <main>
       <section class="tool-page-intro">
         <nav class="breadcrumb" aria-label="Ruta de navegación">
-          <a href="index.html">PDFLab</a><span aria-hidden="true">/</span><span>Comprimir PDF gratis online</span>
+          <a href="index.html">PDFLab</a><span aria-hidden="true">/</span
+          ><span>Comprimir PDF gratis online</span>
         </nav>
         <p class="eyebrow">HERRAMIENTA PDF GRATUITA</p>
         <h1>Comprimir PDF gratis online</h1>
-        <p class="tool-page-lead">Prueba a reducir el peso de tu documento PDF con tres niveles de compresión. Compara el tamaño final y conserva el original en tu dispositivo.</p>
+        <p class="tool-page-lead">
+          Prueba a reducir el peso de tu documento PDF con tres niveles de
+          compresión. Compara el tamaño final y conserva el original en tu
+          dispositivo.
+        </p>
       </section>
 
-      <section class="workspace-screen tool-workspace" aria-labelledby="workspaceHeading">
+      <section
+        class="workspace-screen tool-workspace"
+        aria-labelledby="workspaceHeading"
+      >
         <div class="workspace-header">
           <h2 id="workspaceHeading">Reduce el tamaño de tu PDF</h2>
-          <p>Selecciona un documento y elige el nivel de compresión. PDFLab solo ofrece la descarga si el resultado es más pequeño.</p>
+          <p>
+            Selecciona un documento y elige el nivel de compresión. PDFLab solo
+            ofrece la descarga si el resultado es más pequeño.
+          </p>
         </div>
         <div id="toolWorkspace">
           <div class="upload-zone" id="uploadZone">
             <div class="upload-icon">↑</div>
             <h2>Arrastra tus archivos PDF aquí</h2>
             <p>O selecciona documentos desde tu dispositivo</p>
-            <label for="fileInput" class="primary-button">Seleccionar archivos PDF</label>
-            <input type="file" id="fileInput" accept=".pdf,application/pdf" multiple hidden />
-            <p class="upload-note">PDF · Los documentos se procesan en este navegador</p>
+            <label for="fileInput" class="primary-button"
+              >Seleccionar archivos PDF</label
+            >
+            <input
+              type="file"
+              id="fileInput"
+              accept=".pdf,application/pdf"
+              multiple
+              hidden
+            />
+            <p class="upload-note">
+              PDF · Los documentos se procesan en este navegador
+            </p>
           </div>
           <div id="fileList" class="file-list" aria-live="polite"></div>
           <div class="compress-controls" id="compressControls" hidden>
@@ -71,21 +121,40 @@
             <label for="compressionLevel">Nivel de compresión</label>
             <select id="compressionLevel">
               <option value="light">Ligera — Mayor calidad</option>
-              <option value="recommended" selected>Recomendada — Equilibrada</option>
+              <option value="recommended" selected>
+                Recomendada — Equilibrada
+              </option>
               <option value="extreme">Extrema — Menor tamaño</option>
             </select>
             <div class="compress-info">
               <span>✦</span>
-              <p>Para reducir el peso, las páginas se vuelven a renderizar como imágenes. Esto puede afectar la calidad y hacer que el texto deje de ser seleccionable. El PDF original no se modifica.</p>
+              <p>
+                Para reducir el peso, las páginas se vuelven a renderizar como
+                imágenes. Esto puede afectar la calidad y hacer que el texto
+                deje de ser seleccionable. El PDF original no se modifica.
+              </p>
             </div>
-            <button id="compressButton" class="primary-button" type="button">Comprimir PDF</button>
+            <button id="compressButton" class="primary-button" type="button">
+              Comprimir PDF
+            </button>
             <p id="compressMessage" role="status" aria-live="polite"></p>
-            <div class="process-progress" id="compressMessageProgress" role="progressbar" aria-label="Progreso del proceso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden>
+            <div
+              class="process-progress"
+              id="compressMessageProgress"
+              role="progressbar"
+              aria-label="Progreso del proceso"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0"
+              hidden
+            >
               <div class="process-progress-top">
                 <span class="process-progress-label">Preparando...</span>
                 <strong class="process-progress-percent">0%</strong>
               </div>
-              <div class="process-progress-track"><div class="process-progress-fill"></div></div>
+              <div class="process-progress-track">
+                <div class="process-progress-fill"></div>
+              </div>
               <p class="process-progress-detail">Trabajando en tu navegador</p>
             </div>
             <div id="compressionResults" class="compression-results" hidden>
@@ -94,12 +163,19 @@
                 <div class="size-item">
                   <span>Original</span>
                   <strong id="originalSize">0 KB</strong>
-                  <div class="size-track"><div id="originalBar" class="size-bar original-bar"></div></div>
+                  <div class="size-track">
+                    <div id="originalBar" class="size-bar original-bar"></div>
+                  </div>
                 </div>
                 <div class="size-item">
                   <span>Nuevo documento</span>
                   <strong id="compressedSize">0 KB</strong>
-                  <div class="size-track"><div id="compressedBar" class="size-bar compressed-bar"></div></div>
+                  <div class="size-track">
+                    <div
+                      id="compressedBar"
+                      class="size-bar compressed-bar"
+                    ></div>
+                  </div>
                 </div>
               </div>
               <div id="compressionSaving" class="compression-saving">0%</div>
@@ -107,7 +183,9 @@
             </div>
           </div>
         </div>
-        <p class="privacy-note"><span>✦</span> Tus archivos se procesan localmente en tu navegador.</p>
+        <p class="privacy-note">
+          <span>✦</span> Tus archivos se procesan localmente en tu navegador.
+        </p>
       </section>
 
       <section class="tool-seo-content">
@@ -115,21 +193,56 @@
           <p class="eyebrow">CÓMO FUNCIONA</p>
           <h2>Cómo comprimir un PDF</h2>
           <ol class="tool-steps">
-            <li><strong>Selecciona un PDF.</strong> Añade el documento que quieres optimizar.</li>
-            <li><strong>Elige un nivel.</strong> Selecciona compresión ligera, recomendada o extrema.</li>
-            <li><strong>Revisa el resultado.</strong> Compara el tamaño original con el nuevo y descarga la versión optimizada si es más pequeña.</li>
+            <li>
+              <strong>Selecciona un PDF.</strong> Añade el documento que quieres
+              optimizar.
+            </li>
+            <li>
+              <strong>Elige un nivel.</strong> Selecciona compresión ligera,
+              recomendada o extrema.
+            </li>
+            <li>
+              <strong>Revisa el resultado.</strong> Compara el tamaño original
+              con el nuevo y descarga la versión optimizada si es más pequeña.
+            </li>
           </ol>
         </div>
         <div class="tool-content-block">
           <h2>Elige entre calidad y tamaño</h2>
-          <p>PDFLab vuelve a renderizar las páginas como imágenes para generar una versión de menor peso. El resultado depende del contenido del archivo: no todos los PDF se pueden reducir.</p>
-          <div class="tool-notice"><strong>Importante:</strong> este método puede reducir la nitidez y hacer que el texto deje de ser seleccionable o buscable. Conserva el PDF original si necesitas mantener texto editable o accesible.</div>
+          <p>
+            PDFLab vuelve a renderizar las páginas como imágenes para generar
+            una versión de menor peso. El resultado depende del contenido del
+            archivo: no todos los PDF se pueden reducir.
+          </p>
+          <div class="tool-notice">
+            <strong>Importante:</strong> este método puede reducir la nitidez y
+            hacer que el texto deje de ser seleccionable o buscable. Conserva el
+            PDF original si necesitas mantener texto editable o accesible.
+          </div>
         </div>
         <div class="tool-faq">
           <h2>Preguntas frecuentes sobre comprimir PDF</h2>
-          <details><summary>¿El PDF siempre queda más pequeño?</summary><p>No. El resultado depende del archivo original. Si la nueva versión pesa más, PDFLab no la descarga como resultado optimizado.</p></details>
-          <details><summary>¿Se conserva la selección de texto?</summary><p>No necesariamente. La compresión de PDFLab rasteriza las páginas, por lo que el texto puede dejar de ser seleccionable o buscable.</p></details>
-          <details><summary>¿Qué nivel debo elegir?</summary><p>Empieza con “Ligera” si priorizas la calidad visual. “Recomendada” y “Extrema” aplican una reducción mayor de resolución y calidad.</p></details>
+          <details>
+            <summary>¿El PDF siempre queda más pequeño?</summary>
+            <p>
+              No. El resultado depende del archivo original. Si la nueva versión
+              pesa más, PDFLab no la descarga como resultado optimizado.
+            </p>
+          </details>
+          <details>
+            <summary>¿Se conserva la selección de texto?</summary>
+            <p>
+              No necesariamente. La compresión de PDFLab rasteriza las páginas,
+              por lo que el texto puede dejar de ser seleccionable o buscable.
+            </p>
+          </details>
+          <details>
+            <summary>¿Qué nivel debo elegir?</summary>
+            <p>
+              Empieza con “Ligera” si priorizas la calidad visual. “Recomendada”
+              y “Extrema” aplican una reducción mayor de resolución y calidad.
+            </p>
+          </details>
         </div>
       </section>
       <section class="tool-related">
@@ -138,22 +251,55 @@
           <a href="unir-pdf.html">Unir PDF <span>↗</span></a>
           <a href="dividir-pdf.html">Dividir PDF <span>↗</span></a>
           <a href="comprimir-pdf.html">Comprimir PDF <span>↗</span></a>
-          <a href="imagenes-a-pdf.html">Convertir imágenes a PDF <span>↗</span></a>
+          <a href="imagenes-a-pdf.html"
+            >Convertir imágenes a PDF <span>↗</span></a
+          >
         </div>
       </section>
     </main>
     <div id="pdflab-footer"></div>
     <!-- Ventana voluntaria de apoyo: aparece después de completar una herramienta -->
     <div id="donationModal" class="donation-modal" hidden>
-      <div class="donation-modal-content" role="dialog" aria-modal="true" aria-labelledby="donationTitle">
-        <button type="button" id="closeDonationModal" class="donation-close" aria-label="Cerrar ventana">&times;</button>
+      <div
+        class="donation-modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="donationTitle"
+      >
+        <button
+          type="button"
+          id="closeDonationModal"
+          class="donation-close"
+          aria-label="Cerrar ventana"
+        >
+          &times;
+        </button>
         <div class="donation-heart">💜</div>
         <h2 id="donationTitle">¡Tu archivo está listo! 🎉</h2>
-        <p>PDFLab es gratuito y queremos que siga siéndolo. Si nuestra herramienta te ayudó, puedes apoyar el proyecto con una donación voluntaria.</p>
-        <a href="https://ko-fi.com/pdflabapp" target="_blank" rel="noopener noreferrer" class="donation-support-btn">💜 Apoyar PDFLab</a>
-        <button type="button" id="skipDonation" class="donation-skip">Ahora no, seguir usando PDFLab</button>
+        <p>
+          PDFLab es gratuito y queremos que siga siéndolo. Si nuestra
+          herramienta te ayudó, puedes apoyar el proyecto con una donación
+          voluntaria.
+        </p>
+        <a
+          href="https://ko-fi.com/pdflabapp"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="donation-support-btn"
+          >💜 Apoyar PDFLab</a
+        >
+        <button type="button" id="skipDonation" class="donation-skip">
+          Ahora no, seguir usando PDFLab
+        </button>
       </div>
     </div>
     <script src="footer.js" defer></script>
+    <!-- Cloudflare Web Analytics -->
+    <script
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "c49f92c46b57468f889c7ac3ae4de060"}'
+    ></script>
+    <!-- End Cloudflare Web Analytics -->
   </body>
 </html>
